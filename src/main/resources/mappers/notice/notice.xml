@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.simpolor.app.notice.mapper.NoticeMapper">
+	
+	 <select id="selectNoticeTotalCount" parameterType="noticeVO" resultType="int">
+		SELECT COUNT(*)
+		  FROM notice
+		 WHERE del_yn = 'N'
+		 <if test="search_condition != null">
+      	 	AND ${search_condition} LIKE CONCAT('%', #{search_word},'%')
+    	 </if>
+    </select>
+    
+    <select id="selectNoticeList" parameterType="noticeVO" resultType="noticeVO">
+		SELECT notice_seq
+		       , notice_title
+		       , notice_content
+		       , reg_id
+		       , reg_name
+		       , reg_nickname
+		       , DATE(reg_date) reg_date
+		       , mod_id
+		       , mod_name
+		       , mod_nickname
+		       , DATE(mod_date) mod_date
+		       , del_yn
+		  FROM notice
+		 WHERE del_yn = 'N'
+		 <if test="search_condition != null">
+      	 	AND ${search_condition} LIKE CONCAT('%', #{search_word},'%')
+    	 </if>
+	  ORDER BY notice_seq DESC
+	     LIMIT #{limit} OFFSET #{offset} 
+    </select>
+    
+    <select id="selectNotice" parameterType="noticeVO" resultType="noticeVO">
+		SELECT notice_seq
+		       , notice_title
+		       , notice_content
+		       , reg_id
+		       , reg_name
+		       , reg_nickname
+		       , DATE(reg_date) mod_date
+		       , mod_id
+		       , mod_name
+		       , mod_nickname
+		       , DATE(mod_date) mod_date
+		       , del_yn
+		  FROM notice
+		 WHERE notice_seq = #{notice_seq}
+    </select>
+    
+	<insert id="insertNotice" parameterType="noticeVO" useGeneratedKeys="true" keyProperty="notice_seq">
+		INSERT INTO notice( notice_title, notice_content, reg_id, reg_name, reg_nickname, reg_date )
+			 VALUES ( 
+			 			#{notice_title}
+			 		 	, #{notice_content}
+			 		 	, #{reg_id}
+			 		 	, #{reg_name}
+			 		 	, #{reg_nickname}
+			 		 	, now() 
+			 	    )
+    </insert>
+    
+    <update id="updateNotice" parameterType="noticeVO">
+		UPDATE notice
+		   SET notice_title=#{notice_title}, notice_content=#{notice_content}, mod_id=#{mod_id}, mod_name=#{mod_name}, mod_nickname=#{mod_nickname}, mod_date=now()
+		 WHERE notice_seq = #{notice_seq}
+    </update>
+    
+    <update id="deleteNotice" parameterType="noticeVO">
+		UPDATE notice
+		   SET del_yn='Y', mod_id=#{mod_id}, mod_name=#{mod_name}, mod_nickname=#{mod_nickname}, mod_date=now()
+		 WHERE notice_seq = #{notice_seq}
+    </update>
+    
+</mapper>

@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.fsimpolor.app.member.mapper.LoginMapper">
+
+   	<select id="selectMemberLogin" parameterType="memberVO" resultType="memberVO">
+		SELECT member_id, member_name, member_nickname, member_email, level, reg_date, mod_date
+		  FROM member
+		 WHERE member_id = #{member_id}
+		   AND member_pw = #{member_pw} 
+    </select>
+    
+    
+    <select id="selectMemberAdminLogin" parameterType="memberVO" resultType="memberVO">
+		SELECT member_id, member_name, member_nickname, member_email, level, reg_date, mod_date
+		  FROM member
+		 WHERE member_id = #{member_id}
+		    AND member_pw = #{member_pw}
+		    AND level >= 90  
+    </select>
+</mapper>

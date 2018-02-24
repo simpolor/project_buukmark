@@ -1,0 +1,385 @@
+/*---- .board-nav start ----*/
+.board-nav {
+	width: 100%;
+	min-width: 1000px;
+	height: auto;
+	margin-top: 30px;
+}
+.board-nav-title {
+	width: 900px;
+	margin: 0 auto;
+}
+.board-nav-title>span {
+	font-weight: bold;
+	font-size: 16px;
+}
+/*---- .board-nav end ----*/
+
+
+/*---- .board-search start ----*/
+.board-search {
+	width: 100%;
+	min-width: 1000px;
+	height: 100px;
+}
+.board-search fieldset {
+	width: 700px;
+	border: 0;
+	margin: 0 auto;
+}
+.board-search legend {
+	display: none;
+}
+.board-search p {
+	padding-top: 10px;
+}
+.board-search-condition {
+	width: 150px;
+	height: 40px;
+	margin-right: 2px;
+	border: 1px solid #DCDCDC;
+}
+.board-search-word {
+	width: 440px;
+	height: 38px;
+	margin-right: 2px;
+	padding: 5px;
+	border: 1px solid #DCDCDC;
+	-webkit-box-sizing: border-box; /* Safari/Chrome, other WebKit */
+    -moz-box-sizing: border-box;    /* Firefox, other Gecko */
+    box-sizing: border-box;         /* Opera/IE 8+ */
+}
+.board-search-btn {
+	width: 90px;
+	height: 40px;
+	background: red;
+	margin-top: -4px;
+	margin-right: 2px;
+	border: 1px solid #DCDCDC;
+	background: #CACACA;
+}
+/*---- .board-search end ----*/
+
+
+/*---- .board-list start ----*/
+.board-list {
+	width: 100%;
+	min-width: 1000px;
+	height: auto;
+	margin: 20px 0;
+}
+.board-list table {
+	width: 900px;
+	margin: 0 auto;
+}
+.board-list caption {
+	display: none;
+}
+.board-list thead {
+	background: #D8D8D8;
+}
+.board-list thead>tr {
+	height: 40px;
+	border-bottom: 1px solid #C6C6C6;
+}
+.board-list thead>tr>th {
+	text-align: center;
+}
+.board-list tbody { }
+.board-list tbody>tr {
+	height: 35px;
+	border-bottom: 0.5px solid #C6C6C6;
+}
+.board-list tbody>tr>td { }
+.board-list a {
+	text-decoration: none;
+	color: #000;
+}
+/*---- .board-list end ----*/
+
+
+/*---- .board-write start ----*/
+.board-write {
+	width: 100%;
+	min-width: 1000px;
+	height: auto;
+	margin: 20px 0;
+}
+.board-write table {
+	width: 900px;
+	margin: 0 auto;
+}
+.board-write caption {
+	display: none;
+}
+.board-write thead { }
+.board-write thead>tr {
+	height: 40px;
+}
+.board-write thead>tr>th {
+	text-align: left;
+}
+.board-write tbody { }
+.board-write tbody>tr {
+	height: 100%;
+}
+.board-write tbody>tr>td {
+	text-align: left;
+}
+.board-write-title {
+	width: 890px;
+	height: 38px;
+	/*margin: 3px;*/
+	border: 1px solid #C6C6C6;
+	font-weight: normal;
+	padding: 10px;
+	-webkit-box-sizing: border-box; /* Safari/Chrome, other WebKit */
+    -moz-box-sizing: border-box;    /* Firefox, other Gecko */
+    box-sizing: border-box;         /* Opera/IE 8+ */
+}
+.board-write-content {
+	width: 890px;
+	height: 500px;
+	/*margin: 3px;*/
+	border: 1px solid #C6C6C6;
+	padding: 10px;
+	/*line-height: 25px;*/
+	line-height: 20px;
+	-webkit-box-sizing: border-box; /* Safari/Chrome, other WebKit */
+    -moz-box-sizing: border-box;    /* Firefox, other Gecko */
+    box-sizing: border-box;         /* Opera/IE 8+ */
+}
+/*---- .board-write end ----*/
+
+
+/*---- .board-view start ----*/
+.board-view {
+	width: 100%;
+	min-width: 1000px;
+	height: auto;
+	margin: 20px 0;
+}
+.board-view table {
+	width: 900px;
+	margin: 0 auto;
+}
+.board-view caption {
+	display: none;
+}
+.board-view thead { }
+.board-view thead>tr {
+	height: 45px;
+}
+.board-view thead>tr>th {
+	text-align: center;
+}
+.board-view tbody { }
+.board-view tbody>tr {
+	height: 100%;
+}
+.board-view tbody>tr>td {
+	text-align: left;
+	vertical-align: top;
+}
+.board-view-title {
+	width: 890px;
+	height: inherit;
+	border-top: 1px solid #C6C6C6;
+	border-bottom: 1px solid #C6C6C6;
+	padding: 10px;
+	-webkit-box-sizing: border-box; /* Safari/Chrome, other WebKit */
+    -moz-box-sizing: border-box;    /* Firefox, other Gecko */
+    box-sizing: border-box;         /* Opera/IE 8+ */
+}
+.board-view-content {
+	width: 890px;
+	height: 500px;
+	margin: 3px;
+	padding: 10px;
+	border: 1px solid #C6C6C6;
+	font-weight: normal;
+	/*line-height: 25px;*/
+	line-height: 30px;
+	-webkit-box-sizing: border-box; /* Safari/Chrome, other WebKit */
+    -moz-box-sizing: border-box;    /* Firefox, other Gecko */
+    box-sizing: border-box;         /* Opera/IE 8+ */
+}
+/*---- .board-view end ----*/
+
+/*---- .reply-list start ----*/
+.reply-list {
+	margin-top: 30px;
+	width: 100%;
+	min-width: 1000px;
+	height: auto;
+}
+.reply-list-group {
+	margin: 0 auto;
+	width: 900px;
+	margin-bottom: 20px;
+	border-top: 1px solid #C6C6C6;
+}
+.reply-list-header {
+	width: inherit;
+	height: 35px;
+	line-height: 35px;
+}
+.reply-list-header span {
+	font-size: 16px;
+	font-weight: bold;
+}
+.reply-list-header a {
+	text-decoration: none;
+}
+.reply-list-body {
+	width: inherit;
+	height: auto;
+	min-height: 30px;;
+	line-height: 30px;
+}
+.reply-list-body div {
+	width: inherit;
+	height: auto;
+	min-height: 60x;
+	line-height: 30px;
+	-webkit-box-sizing: border-box; /* Safari/Chrome, other WebKit */
+    -moz-box-sizing: border-box;    /* Firefox, other Gecko */
+    box-sizing: border-box;         /* Opera/IE 8+ */
+}
+.reply-list-body textarea {
+	width: inherit;
+	height: 60px;
+	line-height: 30px;
+	border: 1px solid #C6C6C6;
+	resize: none;
+	-webkit-box-sizing: border-box; /* Safari/Chrome, other WebKit */
+    -moz-box-sizing: border-box;    /* Firefox, other Gecko */
+    box-sizing: border-box;         /* Opera/IE 8+ */
+}
+/*---- .reply-list end ----*/
+
+
+/*---- .reply-write start ----*/
+.reply-write {
+	margin-top: 30px;
+	width: 100%;
+	min-width: 1000px;
+	height: auto;
+}
+.reply-write-group {
+	margin: 0 auto;
+	width: 900px;
+	margin-bottom: 20px;
+}
+.reply-write-header {
+	width: inherit;
+	height: 35px;
+	line-height: 35px;
+	border-top: 2px solid #C6C6C6;
+}
+.reply-write-header span {
+	font-size: 16px;
+	font-weight: bold;
+}
+.reply-write-body {
+	width: inherit;
+	height: auto;
+	min-height: 30px;;
+	line-height: 30px;
+}
+.reply-write-body textarea {
+	width: inherit;
+	height: 60px;
+	line-height: 30px;
+	border: 1px solid #C6C6C6;
+	resize: none;
+	-webkit-box-sizing: border-box; /* Safari/Chrome, other WebKit */
+    -moz-box-sizing: border-box;    /* Firefox, other Gecko */
+    box-sizing: border-box;         /* Opera/IE 8+ */
+}
+.reply-write-btn {
+	margin: 0 auto;
+	width: 900px;
+	height: auto;
+	min-height: 30px;;
+	line-height: 30px;
+	text-align: right;
+}
+
+.reply-write-btn a{
+	text-decoration: none;
+	color: #000;
+}
+
+.reply-write-guide {
+	width: inherit;
+	height: 30px;
+	line-height: 30px;
+}
+.reply-write-guide span {
+	font-size: 16px;
+	font-weight: bold;
+}
+
+
+/*---- .board-btn start ----*/
+.board-btn {
+	width: 100%;
+	min-width: 1000px;
+	height: 30px;
+	margin-top: 20px;
+	margin-bottom: 30px;
+}
+.board-btn-list {
+	width: 900px;
+	height: inherit;
+	margin: 0 auto;
+}
+.board-btn-group {
+	float: right;
+	width: auto;
+	height: inherit;
+}
+.board-btn-group a {
+	display: inline-block;
+	font-size: 16px;
+	line-height: 20px;;
+	text-decoration: none;
+	color: #000;
+	margin: 0 10px;
+}
+.board-btn-group a:active {
+	color: #000;
+}
+/*---- .board-btn end ----*/
+
+
+/*---- .board-pagination start ----*/
+.board-pagination {
+	text-align: center; 
+	margin: 20px;
+}
+.board-pagination a, .board-pagination strong {
+    display: inline-block;
+	background: #FFF;
+    margin-right: 3px;
+    padding: 4px 13px;
+	font-size: 16px;
+	line-height: 20px;;
+	text-decoration: none;
+	color: #4A4A4A;
+
+    -webkit-border-radius: 3px;
+    -moz-border-radius: 3px;
+    border-radius: 3px;
+}
+.board-pagination a:hover { 
+	color: #FFBB00;
+}
+.board-pagination a:active {
+	background: #D5D5D5;
+}
+.board-pagination strong {
+	color: #000;
+}
+/*---- .board-pagination end ----*/

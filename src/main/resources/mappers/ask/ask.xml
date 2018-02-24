@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.simpolor.app.ask.mapper.AskMapper">
+	
+    <select id="selectAskTotalCount" parameterType="askVO" resultType="int">
+		SELECT COUNT(*)
+		  FROM ask
+		 WHERE del_yn = 'N'
+		 <if test="search_condition != null">
+      	 	AND ${search_condition} LIKE CONCAT('%', #{search_word},'%')
+    	 </if>
+    </select>
+    
+    <select id="selectAskList" parameterType="askVO" resultType="askVO">
+		SELECT ask_seq
+		       , ask_title
+		       , ask_content
+		       , reg_id
+		       , reg_name
+		       , reg_nickname
+		       , DATE(reg_date) reg_date
+		       , mod_id
+		       , mod_name
+		       , mod_nickname
+		       , DATE(mod_date) mod_date
+		       , secret_yn
+		       , del_yn
+		  FROM ask
+		 WHERE del_yn = 'N'
+		 <if test="search_condition != null">
+      	 	AND ${search_condition} LIKE CONCAT('%', #{search_word},'%')
+    	 </if>
+	  ORDER BY ask_seq DESC
+	     LIMIT #{limit} OFFSET #{offset} 
+    </select>
+    
+    <select id="selectAsk" parameterType="askVO" resultType="askVO">
+		SELECT ask_seq
+		       , ask_title
+		       , ask_content
+		       , reg_id
+		       , reg_name
+		       , reg_nickname
+		       , DATE(reg_date) mod_date
+		       , mod_id
+		       , mod_name
+		       , mod_nickname
+		       , DATE(mod_date) mod_date
+		       , secret_yn
+		       , del_yn
+		  FROM ask
+		 WHERE ask_seq = #{ask_seq}
+    </select>
+    
+	<insert id="insertAsk" parameterType="askVO" useGeneratedKeys="true" keyProperty="ask_seq">
+		INSERT INTO ask( ask_title, ask_content, reg_id, reg_name, reg_nickname, reg_date, secret_yn )
+			 VALUES ( 
+			 			#{ask_title}
+			 		 	, #{ask_content}
+			 		 	, #{reg_id}
+			 		 	, #{reg_name}
+			 		 	, #{reg_nickname}
+			 		 	, now()
+			 		 	, #{secret_yn} 
+			 	    )
+    </insert>
+    
+    <update id="updateAsk" parameterType="askVO">
+		UPDATE ask
+		   SET ask_title=#{ask_title}, ask_content=#{ask_content}, mod_id=#{mod_id}, mod_name=#{mod_name}, mod_nickname=#{mod_nickname}, mod_date=now(), secret_yn=#{secret_yn}
+		 WHERE ask_seq=#{ask_seq}
+    </update>
+    
+    <update id="deleteAsk" parameterType="askVO">
+		UPDATE ask
+		   SET del_yn='Y', mod_id=#{mod_id}, mod_name=#{mod_name}, mod_nickname=#{mod_nickname}, mod_date=now()
+		 WHERE ask_seq = #{ask_seq}
+    </update>
+    
+</mapper>

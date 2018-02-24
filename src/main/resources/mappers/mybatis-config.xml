@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8" ?>  
+<!DOCTYPE configuration PUBLIC "-//mybatis.org//DTD Config 3.0//EN" "http://mybatis.org/dtd/mybatis-3-config.dtd">  
+     
+<configuration>
+	 
+	<typeAliases>
+		<typeAlias alias="bookmarkVO" type="com.simpolor.app.bookmark.vo.BookmarkVO" />
+		<typeAlias alias="boardVO" type="com.simpolor.app.board.vo.BoardVO" />
+		<typeAlias alias="boardReplyVO" type="com.simpolor.app.board.vo.BoardReplyVO" />
+		<typeAlias alias="noticeVO" type="com.simpolor.app.notice.vo.NoticeVO" />
+		<typeAlias alias="noticeReplyVO" type="com.simpolor.app.notice.vo.NoticeReplyVO" />		
+		<typeAlias alias="askVO" type="com.simpolor.app.ask.vo.AskVO" />		
+		<typeAlias alias="memberVO" type="com.simpolor.app.member.vo.MemberVO" />	
+    </typeAliases>
+    
+    <mappers>
+     	<mapper resource="mappers/bookmark/bookmark.xml"/>
+     	<mapper resource="mappers/bookmark/bookmarkMy.xml"/>
+     	
+     	<mapper resource="mappers/board/board.xml"/>
+     	<mapper resource="mappers/board/boardReply.xml"/>
+     	<mapper resource="mappers/notice/notice.xml"/>
+     	<mapper resource="mappers/notice/noticeReply.xml"/>
+     	<mapper resource="mappers/ask/ask.xml"/>
+     	
+     	<mapper resource="mappers/member/join.xml"/>
+     	<mapper resource="mappers/member/login.xml"/>
+     	<mapper resource="mappers/member/member.xml"/>
+     	<mapper resource="mappers/member/search.xml"/>
+     	<mapper resource="mappers/member/withdraw.xml"/>
+    </mappers>
+
+</configuration>

@@ -1,0 +1,23 @@
+.color-orange { color: #FFA500 }
+.color-orange-red { color: #FF4500 }
+.color-royal-blue { color: #4169E1 }
+.color-blue { color: #0000FF }
+.color-red { color: #FF0000 }
+.color-black { color: #000000 } 
+.color-white { color: #FFFFFF }
+
+.font-8 { font-size: 8px; }
+.font-10 { font-size: 10px; }
+.font-12 { font-size: 12px; }
+.font-14 { font-size: 14px; }
+.font-16 { font-size: 16px; }
+.font-18 { font-size: 18px; }
+.font-20 { font-size: 20px; }
+
+.font-bold { font-weight: bold; }
+.font-normal { font-weight: normal; }
+
+.height-30 { height: 30px; }
+.height-50 { height: 50px; }
+
+.corsor { cursor:pointer; }

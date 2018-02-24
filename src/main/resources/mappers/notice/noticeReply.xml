@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.simpolor.app.notice.mapper.NoticeReplyMapper">
+	
+	 <select id="selectNoticeReplyTotalCount" parameterType="NoticeReplyVO" resultType="int">
+		SELECT COUNT(*)
+		  FROM notice_reply
+		 WHERE del_yn = 'N'
+		   AND notice_seq = #{notice_seq}
+    </select>
+    
+    <select id="selectNoticeReplyList" parameterType="NoticeReplyVO" resultType="NoticeReplyVO">
+		SELECT 
+		       reply_seq
+			   , notice_seq
+		       , reply_content
+		       , reg_id
+		       , reg_name
+		       , reg_nickname
+		       , DATE(reg_date) reg_date
+		       , mod_id
+		       , mod_name
+		       , mod_nickname
+		       , DATE(mod_date) mod_date
+		       , del_yn
+		  FROM notice_reply
+		 WHERE del_yn = 'N'
+		   AND notice_seq = #{notice_seq}
+	  ORDER BY reply_seq ASC
+	     <!-- LIMIT #{limit} OFFSET #{offset}  --> 
+    </select>
+    
+	<insert id="insertNoticeReply" parameterType="NoticeReplyVO" useGeneratedKeys="true" keyProperty="reply_seq">
+		INSERT INTO notice_reply( notice_seq, reply_content, reg_id, reg_name, reg_nickname, reg_date )
+			 VALUES (
+			 			#{notice_seq}
+			 		 	, #{reply_content}
+			 		 	, #{reg_id}
+			 		 	, #{reg_name}
+			 		 	, #{reg_nickname}
+			 		 	, now() 
+			 	    )
+    </insert>
+    
+    <update id="updateNoticeReply" parameterType="NoticeReplyVO">
+		UPDATE notice_reply
+		   SET reply_content=#{reply_content}, mod_id=#{mod_id}, mod_name=#{mod_name}, mod_nickname=#{mod_nickname}, mod_date=now()
+		 WHERE reply_seq = #{reply_seq}
+		   AND notice_seq = #{notice_seq}
+    </update>
+    
+    <update id="deleteNoticeReply" parameterType="NoticeReplyVO">
+		UPDATE notice_reply
+		   SET del_yn='Y', mod_id=#{mod_id}, mod_name=#{mod_name}, mod_nickname=#{mod_nickname}, mod_date=now()
+		 WHERE reply_seq = #{reply_seq}
+		   AND notice_seq = #{notice_seq}
+    </update>
+    
+</mapper>

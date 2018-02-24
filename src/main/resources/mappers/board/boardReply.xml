@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.simpolor.app.board.mapper.BoardReplyMapper">
+	
+	 <select id="selectBoardReplyTotalCount" parameterType="BoardReplyVO" resultType="int">
+		SELECT COUNT(*)
+		  FROM board_reply
+		 WHERE del_yn = 'N'
+		   AND board_seq = #{board_seq}
+    </select>
+    
+    <select id="selectBoardReplyList" parameterType="BoardReplyVO" resultType="BoardReplyVO">
+		SELECT 
+		       reply_seq
+			   , board_seq
+		       , reply_content
+		       , reg_id
+		       , reg_name
+		       , reg_nickname
+		       , DATE(reg_date) reg_date
+		       , mod_id
+		       , mod_name
+		       , mod_nickname
+		       , DATE(mod_date) mod_date
+		       , del_yn
+		  FROM board_reply
+		 WHERE del_yn = 'N'
+		   AND board_seq = #{board_seq}
+	  ORDER BY reply_seq ASC
+	     <!-- LIMIT #{limit} OFFSET #{offset}  --> 
+    </select>
+    
+	<insert id="insertBoardReply" parameterType="BoardReplyVO" useGeneratedKeys="true" keyProperty="reply_seq">
+		INSERT INTO board_reply( board_seq, reply_content, reg_id, reg_name, reg_nickname, reg_date )
+			 VALUES (
+			 			#{board_seq}
+			 		 	, #{reply_content}
+			 		 	, #{reg_id}
+			 		 	, #{reg_name}
+			 		 	, #{reg_nickname}
+			 		 	, now() 
+			 	    )
+    </insert>
+    
+    <update id="updateBoardReply" parameterType="BoardReplyVO">
+		UPDATE board_reply
+		   SET reply_content=#{reply_content}, mod_id=#{mod_id}, mod_name=#{mod_name}, mod_nickname=#{mod_nickname}, mod_date=now()
+		 WHERE reply_seq = #{reply_seq}
+		   AND board_seq = #{board_seq}
+    </update>
+    
+    <update id="deleteBoardReply" parameterType="BoardReplyVO">
+		UPDATE board_reply
+		   SET del_yn='Y', mod_id=#{mod_id}, mod_name=#{mod_name}, mod_nickname=#{mod_nickname}, mod_date=now()
+		 WHERE reply_seq = #{reply_seq}
+		   AND board_seq = #{board_seq}
+    </update>
+    
+</mapper>

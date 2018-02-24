@@ -1,0 +1,86 @@
+/*
+    colors
+	#EAF6F7, #C7E4DB, #8FBCA7, #959C67, #EEC697, #EFE6DD
+*/
+
+#wrap {
+	min-width: 1000px;
+}
+
+#main {
+
+}
+
+#footer {
+	width: 100%;
+	min-width: 1000px;
+	min-hiehgt: 30px;
+	background: #CACACA;
+}
+.footer-copyright {
+	width: inherit;
+	min-width: inherit;
+	text-align: center;
+}
+.footer-copyright>span {
+	font-size: 15px;
+	line-height: 30px;
+	padding: 0 10px;
+}
+
+/*--- header start ---*/
+#header {
+	width: 100%;
+	min-width: 1000px;
+	height: 30px;
+	margin: 0 auto;
+	border-bottom: 1px solid #ED4C00;
+	background: #FF5E00;
+}
+.header-logo {
+	position: absolute;
+	width: inherit;
+	min-width: inherit;
+	text-align: center;
+}
+.header-logo>span {
+	font-weight: bold;
+	font-size: 20px;
+	line-height: 30px;
+}
+.header-member {
+	float: right;
+	padding: 0 20px;
+}
+.header-member>span{
+	clear: both;
+	padding-right: 10px;
+	line-height: 30px;
+}
+/*--- header end ---*/
+
+
+/*--- nav start ---*/
+#nav {
+	width: 100%;
+	min-width: 1000px;
+	height: 50px;
+	margin: 0 auto;
+	border-bottom: 1px solid #ED4C00;
+	background: #FF8224;
+}
+.nav-menus {
+	width: inherit;
+	min-width: inherit;
+	font-size: 15px;
+	line-height: 50px;
+	text-align: center;
+}
+.nav-menus>span {
+	padding: 0 10px;
+}
+/*--- nav end ---*/
+
+#section {
+	height:auto;
+}
