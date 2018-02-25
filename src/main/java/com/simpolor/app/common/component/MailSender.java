@@ -63,13 +63,6 @@ public class MailSender {
             Address fromAddr = new InternetAddress(from);
             Address recipientAddr = new InternetAddress(recipient);
             
-            /* Recipients ( 다수 발송 )
-            InternetAddress[] toArray = new InternetAddress[3]; 
-            toArray[0] = new InternetAddress("ktko0@ktko0.com"); 
-            toArray[1] = new InternetAddress("ktko1@ktko1.com"); 
-            toArray[2] = new InternetAddress("ktko2@ktko2.com"); 
-            msg.addRecipients(Message.RecipientType.TO, toArray);*/
-            
             msg.setFrom(fromAddr);
             msg.addRecipient(Message.RecipientType.TO, recipientAddr);
             msg.setSubject(MimeUtility.encodeText(subject, "UTF-8", "B")); // B:Base64, Q:quoted-printable

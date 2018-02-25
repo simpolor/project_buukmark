@@ -24,6 +24,10 @@
 					alert('아이디를 입력해주세요.');	
 					return false;
 				}
+				if(!validateId($("#member_id").val())){
+					alert('아이디를 정획히 입력해주세요.');
+					return false;
+				}
 				if(isNull($("#member_pw").val())){
 					alert('비밀번호를 입력해주세요.');
 					return false;
@@ -37,6 +41,10 @@
 					$("#member_pw2").val("");
 					return false;
 				}
+				if(!validatePassword($("#member_pw").val())){
+					alert('비밀번호를 정확히 입력해주세요.');
+					return false;
+				}
 				if(isNull($("#member_name").val())){
 					alert('이름을 입력해주세요.');
 					return false;
@@ -46,10 +54,20 @@
 					return false;
 				}
 				if(isNull($("#member_email").val())){
-					alert('이메일 입력해주세요.');
+					alert('이메일을 입력해주세요.');
 					return false;
 				}
+				if(!validateEmail($("#member_email").val())){
+					alert('이메일을 정확히 입력해주세요.');
+					return false;
+				}
+				
 				$("#joinForm").submit();
+			}
+
+			function f_test(){
+				var regex  =/^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{7,15}$/;
+				alert(regex.test($("#member_id").val()));
 			}
 		</script>
 		
@@ -64,10 +82,10 @@
 				<form:form id="joinForm" action="${pageContext.request.contextPath}/member/join" method="post" commandName="memberVO" >
 					<div class="member-field-form">
 						<div class="member-field-input">
-							<form:input path="member_id" placeholder="아이디" />
+							<form:input path="member_id" placeholder="아이디 ( 영소문자 숫자를 혼용 6~20 )" />
 						</div>
 						<div class="member-field-input">
-							<form:password path="member_pw" placeholder="비밀번호" />
+							<form:password path="member_pw" placeholder="비밀번호 ( 영문 숫자를 혼용 8~16 )" />
 						</div>
 						<div class="member-field-input">
 							<form:password path="member_pw2" placeholder="비밀번호 확인" />
@@ -87,6 +105,8 @@
 					</div>
 				</form:form>
 			</div>
+			
+			<button onclick="f_test(); return false;">테스트 정규식</button>
 			
 			<div class="member-link">
 				<div class="member-link-group">

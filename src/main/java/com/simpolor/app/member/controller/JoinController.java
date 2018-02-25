@@ -6,6 +6,7 @@ import java.util.Map;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import org.apache.commons.lang3.Validate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.MessageSource;
 import org.springframework.stereotype.Controller;
@@ -16,6 +17,8 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.simpolor.app.common.component.MailSender;
 import com.simpolor.app.common.util.EncryptUtil;
+import com.simpolor.app.common.util.StringUtil;
+import com.simpolor.app.common.util.ValidateUtil;
 import com.simpolor.app.member.service.JoinService;
 import com.simpolor.app.member.vo.MemberVO;
 
@@ -30,9 +33,6 @@ public class JoinController {
 	
 	@Autowired
     MessageSource messageSource;
-	
-	@Autowired
-	MailSender mailSender;
 	
 	Locale locale;
 	
@@ -51,13 +51,27 @@ public class JoinController {
 		String member_pw = memberVO.getMember_pw();
 		String member_pw2 = memberVO.getMember_pw2();
 		String member_email = memberVO.getMember_email();
-
+		
+		// 비밀번호 유효성검사
+		/*if(!ValidateUtil.isPassword(member_pw)){
+			model.addAttribute("memberVO", memberVO);
+			model.addAttribute("alertMessage", messageSource.getMessage("join.form.password", null, locale));
+			
+			return "/app/member/join";
+		}*/
+				
+		// 이메일 유효성검사
+		if(!ValidateUtil.isEmail(member_email)){
+			model.addAttribute("memberVO", memberVO);
+			model.addAttribute("alertMessage", messageSource.getMessage("join.form.email", null, locale));
+			
+			return "/app/member/join";
+		}
+		
 		if(member_pw.equals(member_pw2)){
 			int idDupCheckResult = joinService.selectMemberIdDupCheck(member_id);
-			
 			if(idDupCheckResult == 0){
 				int emailDupCheckResult = joinService.selectMemberEmailDupCheck(member_email);
-				
 				if(emailDupCheckResult == 0){
 					// 비밀번호 암호화
 					memberVO.setMember_pw(encryptUtil.getEncMD5(member_pw));
@@ -65,21 +79,6 @@ public class JoinController {
 					
 					if(result > 0){
 						redirectAttributes.addFlashAttribute("memberVO", memberVO);
-						
-						String recipient = "simpolor@naver.com";
-						String subject = "[buukmark] 회원가입 인증메일 입니다.";
-						StringBuffer content = new StringBuffer();
-						content.append("<span style=\"font-weight:bold\">"+memberVO.getMember_name() +"</span>님 회원가입을 진심으로 축하드립니다.");
-						content.append("<hr />");
-						content.append("<ul>");
-						content.append("	<li>사이트 : http://buukmark.com</li>");
-						content.append("	<li>아이디 : "+memberVO.getMember_id()+"</li>");
-						content.append("	<li>이메일 : "+memberVO.getMember_email()+"</li>");
-						content.append("</ul>");
-						content.append("<hr /><br />");
-						content.append("아래 링크를 클릭하면 가입 입증이 이루어집니다.<br />");
-						content.append("<a href=\"http://buukmark.com/authKey=AS11A4AZSFG\">http://buukmark.com/authKey=AS11A4AZSFG</a>");
-						System.out.println("mailSender : "+mailSender.send(recipient, subject, content.toString()));
 						
 						return "redirect:/member/joinComplete";
 						
