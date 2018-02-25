@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import com.simpolor.app.common.component.MailSender;
 import com.simpolor.app.common.util.EncryptUtil;
 import com.simpolor.app.member.service.JoinService;
 import com.simpolor.app.member.vo.MemberVO;
@@ -29,6 +30,9 @@ public class JoinController {
 	
 	@Autowired
     MessageSource messageSource;
+	
+	@Autowired
+	MailSender mailSender;
 	
 	Locale locale;
 	
@@ -61,6 +65,22 @@ public class JoinController {
 					
 					if(result > 0){
 						redirectAttributes.addFlashAttribute("memberVO", memberVO);
+						
+						String recipient = "simpolor@naver.com";
+						String subject = "[buukmark] 회원가입 인증메일 입니다.";
+						StringBuffer content = new StringBuffer();
+						content.append("<span style=\"font-weight:bold\">"+memberVO.getMember_name() +"</span>님 회원가입을 진심으로 축하드립니다.");
+						content.append("<hr />");
+						content.append("<ul>");
+						content.append("	<li>사이트 : http://buukmark.com</li>");
+						content.append("	<li>아이디 : "+memberVO.getMember_id()+"</li>");
+						content.append("	<li>이메일 : "+memberVO.getMember_email()+"</li>");
+						content.append("</ul>");
+						content.append("<hr /><br />");
+						content.append("아래 링크를 클릭하면 가입 입증이 이루어집니다.<br />");
+						content.append("<a href=\"http://buukmark.com/authKey=AS11A4AZSFG\">http://buukmark.com/authKey=AS11A4AZSFG</a>");
+						System.out.println("mailSender : "+mailSender.send(recipient, subject, content.toString()));
+						
 						return "redirect:/member/joinComplete";
 						
 					}else{

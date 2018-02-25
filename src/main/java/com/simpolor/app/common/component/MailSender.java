@@ -16,7 +16,7 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 
 @Component
-public class MailComponent {
+public class MailSender {
 
 	@Value("${mail.smtp.user}")
 	private String user;
@@ -30,16 +30,13 @@ public class MailComponent {
 	@Value("${mail.address.from}")
 	private String from;
 	
-	@Value("${mail.charset}")
-	private String charset;
-	
 	@Value("${mail.gmail.account}")
 	private String account;
 	
 	@Value("${mail.gmail.password}")
 	private String password;
 	
-	public boolean mailSender(String recipient, String subject, String content){
+	public boolean send(String recipient, String subject, String content){
         Properties prop = new Properties();
         prop.put("mail.smtp.user", user); // mail.smtp.user
         prop.put("mail.smtp.host", host); // mail.smtp.host
@@ -75,13 +72,8 @@ public class MailComponent {
             
             msg.setFrom(fromAddr);
             msg.addRecipient(Message.RecipientType.TO, recipientAddr);
-            //msg.setSubject(subject);
-            //msg.setSubject(MimeUtility.encodeText(subject, "EUC-KR", "B"));
-            //msg.setContent(content, "text/html; charset=EUC-KR");
-            //msg.setSubject(MimeUtility.encodeText(subject, "UTF-8", "B")); // B:Base64, Q:quoted-printable
-            //msg.setContent(content, "text/html; charset=UTF-8");
-            msg.setSubject(MimeUtility.encodeText(subject, charset, "B")); // B:Base64, Q:quoted-printable
-            msg.setContent(content, "text/html; charset="+charset);
+            msg.setSubject(MimeUtility.encodeText(subject, "UTF-8", "B")); // B:Base64, Q:quoted-printable
+            msg.setContent(content, "text/html; charset=UTF-8");
             
             Transport.send(msg);
             
