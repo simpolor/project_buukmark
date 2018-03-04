@@ -22,6 +22,6 @@ public class ValidateUtil {
 		if (id == null){
 			return false;
 		}
-		return Pattern.matches("[\\w\\~\\-\\.]+@[\\w\\~\\-]+(\\.[\\w\\~\\-]+)+", id);
+		return Pattern.matches("[a-z]+[a-z0-9])+", id);
 	}
 }

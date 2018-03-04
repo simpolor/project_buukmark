@@ -24,7 +24,6 @@
 		<link rel="stylesheet" href="${pageContext.request.contextPath}/css/font-awesome.min.css">
 		<script type="text/javascript" src="${pageContext.request.contextPath}/js/jquery-3.1.1.min.js"></script>
 		<script type="text/javascript" src="${pageContext.request.contextPath}/js/common.js"></script>
-		<script type="text/javascript" src="${pageContext.request.contextPath}/js/validate.js"></script>
 	</head>
 	
 	<body>
