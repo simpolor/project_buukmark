@@ -188,7 +188,7 @@
 							</form:select>
 							
 							<form:input path="search_word" placeholder="검색내용" class="bookmark-search-word" />
-							<button onclick="f_bookmarkSearch(); return false;" class="pure-button bookmark-search-btn">검색</button>
+							<button onclick="f_search(); return false;" class="pure-button bookmark-search-btn">검색</button>
 						</p>
 					</fieldset>
 				</form:form>
@@ -222,7 +222,7 @@
 							 				<a class="font-12 color-royal-blue" href="${bookmarkList.bookmark_url}" target="_blink">
 							 					${bookmarkList.bookmark_url}
 							 				</a>
-							 				<a href="#" class="font-8 color-red"onclick="f_ban('${bookmarkList.bookmark_seq}'); return false;">신고</a>
+							 				<%-- <a href="#" class="font-8 color-red"onclick="f_ban('${bookmarkList.bookmark_seq}'); return false;">신고</a> --%>
 							 			</td>
 							 			<td align="center">
 											<c:if test="${! empty sessionScope.SESSION_MEMBER_ID}">

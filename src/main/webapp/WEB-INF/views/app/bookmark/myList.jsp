@@ -154,7 +154,6 @@
 								 				<a class="font-12 color-royal-blue" href="${bookmarkList.bookmark_url}" target="_blink">
 								 					${bookmarkList.bookmark_url}
 								 				</a>
-								 				<a href="#" class="font-8 color-red"onclick="f_ban('${bookmarkList.bookmark_seq}'); return false;">신고</a>
 								 			</td>
 								 			<td align="center">
 												<c:if test="${! empty sessionScope.SESSION_MEMBER_ID}">
