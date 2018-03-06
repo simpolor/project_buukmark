@@ -68,7 +68,7 @@
 							<form:input path="member_id" placeholder="아이디" />
 						</div>
 						<div class="member-field-input">
-							<form:password path="member_pw" placeholder="비밀번호 ( 8~16 영문/숫자/특수문자 조합 )" />
+							<form:password path="member_pw" placeholder="비밀번호 (6~20 영문/숫자/특수문자[Shift+숫자])" />
 						</div>
 						<div class="member-field-input">
 							<form:password path="member_pw2" placeholder="비밀번호 확인" />

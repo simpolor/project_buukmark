@@ -50,20 +50,46 @@ public class JoinController {
 		String member_id = memberVO.getMember_id();
 		String member_pw = memberVO.getMember_pw();
 		String member_pw2 = memberVO.getMember_pw2();
+		String member_name = memberVO.getMember_name();
+		String member_nickname = memberVO.getMember_nickname();
 		String member_email = memberVO.getMember_email();
 		
-		// 비밀번호 유효성검사
-		/*if(!ValidateUtil.isPassword(member_pw)){
+		// 아이디 유효성검사
+		if(!ValidateUtil.isIdentity(member_id, 6, 20)){
 			model.addAttribute("memberVO", memberVO);
-			model.addAttribute("alertMessage", messageSource.getMessage("join.form.password", null, locale));
+			model.addAttribute("alertMessage", messageSource.getMessage("require.identify", null, locale));
 			
 			return "/app/member/join";
-		}*/
+		}
+		
+		// 비밀번호 유효성검사
+		if(!ValidateUtil.isPassword(member_pw, 6, 16)){
+			model.addAttribute("memberVO", memberVO);
+			model.addAttribute("alertMessage", messageSource.getMessage("require.password", null, locale));
+			
+			return "/app/member/join";
+		}
+		
+		// 이름 유효성검사
+		if(!ValidateUtil.isName(member_name, 2, 25)){
+			model.addAttribute("memberVO", memberVO);
+			model.addAttribute("alertMessage", messageSource.getMessage("require.name", null, locale));
+			
+			return "/app/member/join";
+		}
+		
+		// 닉네임 유효성검사
+		if(!ValidateUtil.isNickname(member_nickname, 2, 25)){
+			model.addAttribute("memberVO", memberVO);
+			model.addAttribute("alertMessage", messageSource.getMessage("require.nickname", null, locale));
+			
+			return "/app/member/join";
+		}
 				
 		// 이메일 유효성검사
 		if(!ValidateUtil.isEmail(member_email)){
 			model.addAttribute("memberVO", memberVO);
-			model.addAttribute("alertMessage", messageSource.getMessage("join.form.email", null, locale));
+			model.addAttribute("alertMessage", messageSource.getMessage("require.email", null, locale));
 			
 			return "/app/member/join";
 		}
