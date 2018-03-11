@@ -76,6 +76,9 @@
 							if(html != ''){
 								$('.reply-list').html(html);
 								$('#reply_content').val('');	
+							}else{
+								$('.reply-list').html('');
+								$('#reply_content').val('');
 							}
 						}
 					}
@@ -155,6 +158,9 @@
 							if(html != ''){
 								$('.reply-list').html(html);
 								$('#reply_content').val('');	
+							}else{
+								$('.reply-list').html('');
+								$('#reply_content').val('');
 							}
 						}
 					}
@@ -187,6 +193,11 @@
 			}
 			
 			function f_replyDelete(reply_seq){
+				
+				if(!confirm("댓글을 정말로 삭제하시겠습니까?")){
+					return false;
+				}
+				
 				var memberId = '${sessionScope.SESSION_MEMBER_ID}';
 				var boardSeqId = '#board_seq_'+reply_seq;
 				var replySeqId = '#reply_seq_'+reply_seq;
@@ -226,6 +237,9 @@
 							if(html != ''){
 								$('.reply-list').html(html);
 								$('#reply_content').val('');	
+							}else{
+								$('.reply-list').html('');
+								$('#reply_content').val('');
 							}
 						}
 					}

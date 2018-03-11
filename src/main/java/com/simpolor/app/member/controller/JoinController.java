@@ -87,10 +87,10 @@ public class JoinController {
 		if(StringUtil.isEquals(memberVO.getMember_pw(), memberVO.getMember_pw2())){
 			int idDupCheckResult = memberService.selectMemberIdDupCheck(memberVO);
 			if(idDupCheckResult == 0){
-				int emailDupCheckResult = memberService.selectMemberEmailDupCheck(memberVO);
-				if(emailDupCheckResult == 0){
-					int nicknameDupCheckResult = memberService.selectMemberNicknameDupCheck(memberVO);
-					if(nicknameDupCheckResult == 0){
+				int nicknameDupCheckResult = memberService.selectMemberNicknameDupCheck(memberVO);
+				if(nicknameDupCheckResult == 0){
+					int emailDupCheckResult = memberService.selectMemberEmailDupCheck(memberVO);
+					if(emailDupCheckResult == 0){
 						// 비밀번호 암호화
 						memberVO.setMember_pw(encryptUtil.getEncMD5(memberVO.getMember_pw()));
 						int result = memberService.insertMember(memberVO);
@@ -107,13 +107,13 @@ public class JoinController {
 							return "/app/member/join";
 						}
 					}else{
-						model.addAttribute(Defines.ALERT_MESSAGE, messageSource.getMessage("member.duplication.nickname", null, locale));
+						model.addAttribute(Defines.ALERT_MESSAGE, messageSource.getMessage("member.duplication.email", null, locale));
 						model.addAttribute("memberVO", memberVO);
 						
 						return "/app/member/join";
 					}
 				}else{
-					model.addAttribute(Defines.ALERT_MESSAGE, messageSource.getMessage("member.duplication.email", null, locale));
+					model.addAttribute(Defines.ALERT_MESSAGE, messageSource.getMessage("member.duplication.nickname", null, locale));
 					model.addAttribute("memberVO", memberVO);
 					
 					return "/app/member/join";

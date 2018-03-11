@@ -49,7 +49,7 @@
 							<span>${memberVO.member_id}</span>
 						</div>
 						<div class="member-field-input">
-							<form:input path="member_pw" placeholder="비밀번호" />
+							<form:password path="member_pw" placeholder="비밀번호" />
 						</div>
 						<div class="member-login-btn">
 							<button class="member-field-btn" onclick="f_withdraw(); return false;">회원탈퇴</button>

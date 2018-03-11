@@ -39,6 +39,8 @@
 .bookmark-search-btn {
 	width: 90px;
 	height: 40px;
+	background: red;
+	margin-top: -4px;
 	margin-right: 2px;
 	border: 1px solid #DCDCDC;
 	background: #CACACA;
@@ -46,7 +48,7 @@
 /*---- .bookmark-search end ----*/
 
 
-/*---- .bookmark-mySearc start ----*/
+/*---- .bookmark-mySearch start ----*/
 .bookmark-mySearch {
 	width: 100%;
 	min-width: 1000px;
@@ -87,6 +89,8 @@
 .bookmark-mySearch-btn {
 	width: 90px;
 	height: 40px;
+	background: red;
+	margin-top: -4px;
 	margin-right: 2px;
 	border: 1px solid #DCDCDC;
 	background: #CACACA;
@@ -94,6 +98,8 @@
 .bookmark-myAdd-btn {
 	width: 50px;
 	height: 40px;
+	background: red;
+	margin-top: -4px;
 	margin-right: 2px;
 	border: 1px solid #DCDCDC;
 	background: #CACACA;

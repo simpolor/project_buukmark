@@ -134,7 +134,7 @@ public class BookmarkMyController {
 		}
 
 		bookmarkVO.setReg_id(member_id);
-		bookmarkVO.setMod_name(member_name);
+		bookmarkVO.setMod_id(member_id);
 		bookmarkVO.setMod_name(member_name);
 		bookmarkVO.setMod_nickname(member_nickname);
 		
@@ -164,7 +164,7 @@ public class BookmarkMyController {
 		}
 		
 		bookmarkVO.setReg_id(member_id); 
-		bookmarkVO.setMod_name(member_name);
+		bookmarkVO.setMod_id(member_id);
 		bookmarkVO.setMod_name(member_name);
 		bookmarkVO.setMod_nickname(member_nickname);
 		

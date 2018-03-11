@@ -60,9 +60,9 @@ public class AdminLoginController {
 	    model.addAttribute("exponent", rsa.getExponent());
 	    session.setAttribute("RSAprivateKey", rsa.getPrivateKey());
 		
-	    System.out.println("rsa.getModulus() : "+rsa.getModulus());
-	    System.out.println("rsa.getExponent() : "+rsa.getExponent());
-	    System.out.println("rsa.getPrivateKey() : "+rsa.getPrivateKey());
+	    logger.debug("rsa.getModulus() : "+rsa.getModulus());
+	    logger.debug("rsa.getExponent() : "+rsa.getExponent());
+	    logger.debug("rsa.getPrivateKey() : "+rsa.getPrivateKey());
 
 	    return "/app/member/adminLogin";
 	}

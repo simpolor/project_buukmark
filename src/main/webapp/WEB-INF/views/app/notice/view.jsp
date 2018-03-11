@@ -62,6 +62,9 @@
 							if(html != ''){
 								$('.reply-list').html(html);
 								$('#reply_content').val('');	
+							}else{
+								$('.reply-list').html('');
+								$('#reply_content').val('');
 							}
 						}
 					}
@@ -141,6 +144,9 @@
 							if(html != ''){
 								$('.reply-list').html(html);
 								$('#reply_content').val('');	
+							}else{
+								$('.reply-list').html('');
+								$('#reply_content').val('');
 							}
 						}
 					}
@@ -149,7 +155,7 @@
 			
 			function f_replyCancel(replySeq){
 				var memberId = '${sessionScope.SESSION_MEMBER_ID}';
-				var boardSeqId = '#board_seq_'+replySeq;
+				var noticeSeqId = '#notice_seq_'+replySeq;
 				var replySeqId = '#reply_seq_'+replySeq;
 				var replyContentId = '#reply_content_'+replySeq
 				var replyListGroupId = '#reply_list_group_'+replySeq;
@@ -162,7 +168,7 @@
 				html += '		<a href="#" onclick="f_replyDelete(\''+replySeq+'\'); return false;">삭제</a>';
 				html += '	</div>';
 				html += '	<div class="reply-list-body">';
-				html += '		<input type="hidden" id="board_seq_'+replySeq+'" value="'+$(boardSeqId).val()+'" />';
+				html += '		<input type="hidden" id="notice_seq_'+replySeq+'" value="'+$(noticeSeqId).val()+'" />';
 				html += '		<input type="hidden" id="reply_seq_'+replySeq+'" value="'+$(replySeqId).val()+'" />';
 				html += '		<div id="reply_content_'+replySeq+'">'+$(replyContentId).text()+'</div>';
 				html += '	</div>';
@@ -173,6 +179,11 @@
 			}
 			
 			function f_replyDelete(reply_seq){
+				
+				if(!confirm("댓글을 정말로 삭제하시겠습니까?")){
+					return false;
+				}
+				
 				var memberId = '${sessionScope.SESSION_MEMBER_ID}';
 				var noticeSeqId = '#notice_seq_'+reply_seq;
 				var replySeqId = '#reply_seq_'+reply_seq;
@@ -212,6 +223,9 @@
 							if(html != ''){
 								$('.reply-list').html(html);
 								$('#reply_content').val('');	
+							}else{
+								$('.reply-list').html('');
+								$('#reply_content').val('');
 							}
 						}
 					}

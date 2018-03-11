@@ -33,7 +33,7 @@
 					return false;
 				}
 				if(!isEqual($("#member_pw").val(), $("#member_pw2").val())){
-					alert('변경할 비밀번호가 일치하지 않습니다.');
+					alert('비밀번호와 비밀번호 재확인과 일치하지 않습니다.');
 					$("#member_pw2").val("");
 					return false;
 				}

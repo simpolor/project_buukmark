@@ -25,6 +25,7 @@ import com.simpolor.app.bookmark.vo.BookmarkVO;
 import com.simpolor.app.common.util.PageInfinity;
 import com.simpolor.app.common.util.PageNavigation;
 import com.simpolor.app.common.util.StringUtil;
+import com.simpolor.app.common.util.ValidateUtil;
 
 /**
  * Handles requests for the application home page.
@@ -130,6 +131,14 @@ public class BookmarkController {
 			return "redirect:/member/login";
 		}
 		
+		// 이름 유효성검사
+		if(!ValidateUtil.isUrl(bookmarkVO.getBookmark_url())){
+			redirectAttributes.addFlashAttribute(Defines.ALERT_MESSAGE, messageSource.getMessage("required.url", null, locale));
+			redirectAttributes.addFlashAttribute("bookmarkVO", bookmarkVO);
+			
+			return "redirect:/bookmark/myList";
+		}
+				
 		bookmarkVO.setReg_id(member_id);
 		bookmarkVO.setReg_name(member_name);
 		bookmarkVO.setReg_nickname(member_nickname);

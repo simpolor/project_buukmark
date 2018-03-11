@@ -26,7 +26,6 @@
      	<mapper resource="mappers/member/login.xml"/>
      	<mapper resource="mappers/member/member.xml"/>
      	<mapper resource="mappers/member/search.xml"/>
-     	<mapper resource="mappers/member/withdraw.xml"/>
     </mappers>
 
 </configuration>

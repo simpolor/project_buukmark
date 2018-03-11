@@ -100,13 +100,14 @@ public class MemberController {
 			
 			return "/app/member/edit";
 		}
-				
+
+		System.out.println("member_id : "+member_id);
 		memberVO.setMember_id(member_id);
 		
-		int emailDupCheckResult = memberService.selectMemberEmailDupCheck(memberVO);
-		if(emailDupCheckResult == 0){
-			int nicknameDupCheckResult = memberService.selectMemberNicknameDupCheck(memberVO);
-			if(nicknameDupCheckResult == 0){
+		int nicknameDupCheckResult = memberService.selectMemberNicknameDupCheck(memberVO);
+		if(nicknameDupCheckResult == 0){
+			int emailDupCheckResult = memberService.selectMemberEmailDupCheck(memberVO);
+			if(emailDupCheckResult == 0){
 				int result = memberService.updateMember(memberVO);
 				if(result > 0){
 					redirectAttributes.addFlashAttribute(Defines.ALERT_MESSAGE, messageSource.getMessage("member.change.profile.complete", null, locale));
@@ -116,12 +117,12 @@ public class MemberController {
 					return "/app/member/edit";
 				}
 			}else{
-				model.addAttribute(Defines.ALERT_MESSAGE, messageSource.getMessage("member.duplication.nickname", null, locale));
+				model.addAttribute(Defines.ALERT_MESSAGE, messageSource.getMessage("member.duplication.email", null, locale));
 				model.addAttribute("memberVO", memberVO);
 				return "/app/member/edit";
 			}
 		}else{
-			model.addAttribute(Defines.ALERT_MESSAGE, messageSource.getMessage("member.duplication.email", null, locale));
+			model.addAttribute(Defines.ALERT_MESSAGE, messageSource.getMessage("member.duplication.nickname", null, locale));
 			model.addAttribute("memberVO", memberVO);
 			return "/app/member/edit";
 		}

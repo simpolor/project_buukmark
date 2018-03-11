@@ -55,6 +55,7 @@ public class SearchController {
 		memberVO = searchService.selectMemberSearch(memberVO);
 		if(memberVO != null){
 			String tempPassword = generateCharacter.excuteGenerate("password", 10);
+			System.out.println("tempPassword : "+tempPassword);
 			memberVO.setMember_pw(encryptUtil.getEncMD5(tempPassword));
 			int result = searchService.updateMemberChange(memberVO);
 			if(result > 0){

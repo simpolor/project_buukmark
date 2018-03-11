@@ -87,12 +87,18 @@
 		SELECT COUNT(*)
 		FROM member
 		WHERE member_email = #{member_email}
+		<if test="member_id != null">
+			AND member_id != #{member_id}
+		</if>
     </select>
     
     <select id="selectMemberNicknameDupCheck" parameterType="memberVO" resultType="int">
 		SELECT COUNT(*)
 		FROM member
 		WHERE member_nickname = #{member_nickname}
+		<if test="member_id != null">
+			AND member_id != #{member_id}
+		</if>
     </select>
     
 </mapper>
