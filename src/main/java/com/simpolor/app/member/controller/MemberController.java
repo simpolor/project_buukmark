@@ -15,6 +15,7 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.simpolor.app.common.util.EncryptUtil;
 import com.simpolor.app.common.util.StringUtil;
+import com.simpolor.app.common.util.ValidateUtil;
 import com.simpolor.app.member.service.MemberService;
 import com.simpolor.app.member.vo.MemberVO;
 
@@ -75,9 +76,38 @@ public class MemberController {
 			return "redirect:/member/login";
 		}
 		
+		String member_name = StringUtil.getString(memberVO.getMember_name());
+		String member_nickname = StringUtil.getString(memberVO.getMember_nickname());
+		String member_email = StringUtil.getString(memberVO.getMember_email());
+		
+		// 이름 유효성검사
+		if(!ValidateUtil.isName(member_name, 2, 25)){
+			model.addAttribute("memberVO", memberVO);
+			model.addAttribute("alertMessage", messageSource.getMessage("require.name", null, locale));
+			
+			return "/app/member/join";
+		}
+				
+		// 닉네임 유효성검사
+		if(!ValidateUtil.isNickname(member_nickname, 2, 25)){
+			model.addAttribute("memberVO", memberVO);
+			model.addAttribute("alertMessage", messageSource.getMessage("require.nickname", null, locale));
+			
+			return "/app/member/join";
+		}
+				
+		// 이메일 유효성검사
+		if(!ValidateUtil.isEmail(member_email)){
+			model.addAttribute("memberVO", memberVO);
+			model.addAttribute("alertMessage", messageSource.getMessage("require.email", null, locale));
+			
+			return "/app/member/join";
+		}
+				
 		memberVO.setMember_id(member_id);
-		memberVO.setMember_name(memberVO.getMember_name());
-		memberVO.setMember_email(memberVO.getMember_email());
+		memberVO.setMember_name(member_name);
+		memberVO.setMember_nickname(member_nickname);
+		memberVO.setMember_email(member_email);
 		
 		int result = memberService.updateMember(memberVO);
 		if(result > 0){

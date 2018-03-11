@@ -1,12 +1,9 @@
 package com.simpolor.app.member.controller;
 
 import java.util.Locale;
-import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
 
-import org.apache.commons.lang3.Validate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.MessageSource;
 import org.springframework.stereotype.Controller;
@@ -15,7 +12,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
-import com.simpolor.app.common.component.MailSender;
 import com.simpolor.app.common.util.EncryptUtil;
 import com.simpolor.app.common.util.StringUtil;
 import com.simpolor.app.common.util.ValidateUtil;
@@ -138,8 +134,8 @@ public class JoinController {
 	@RequestMapping(value = "/member/joinComplete", method = RequestMethod.GET)
 	public String joinComplete(HttpServletRequest request, RedirectAttributes redirectAttributes, Model model, MemberVO memberVO){
 		
-		String member_id = memberVO.getMember_id();
-		if(member_id == null || member_id.equals("")){
+		String member_id = StringUtil.getString(memberVO.getMember_id());
+		if(StringUtil.isEmpty(member_id)){
 			redirectAttributes.addFlashAttribute("alertMessage", messageSource.getMessage("path.access.required", null, locale));
 			return "redirect:/member/join";
 		}

@@ -82,7 +82,6 @@ public class LoginController {
 	        
 	        // 복호화된 평문을 재설정
 	        memberVO.setMember_id(member_id);
-	        //memberVO.setMember_pw(member_pw);
 	        memberVO.setMember_pw(encryptUtil.getEncMD5(member_pw));
 	        
 	        // 로그인 처리
