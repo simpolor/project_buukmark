@@ -20,6 +20,7 @@ import com.simpolor.app.notice.service.NoticeReplyService;
 import com.simpolor.app.notice.service.NoticeService;
 import com.simpolor.app.notice.vo.NoticeReplyVO;
 import com.simpolor.app.notice.vo.NoticeVO;
+import com.simpolor.app.Defines;
 import com.simpolor.app.common.util.PageNavigation;
 import com.simpolor.app.common.util.StringUtil;
 
@@ -48,8 +49,8 @@ public class AdminNoticeController {
 		String member_id = StringUtil.getString(session.getAttribute("SESSION_MEMBER_ID"));
 		int member_level = StringUtil.getInt(session.getAttribute("SESSION_MEMBER_LEVEL"));
 		if(StringUtil.isEmpty(member_id) || member_level < 90){
-			redirectAttributes.addFlashAttribute("alertMessage", messageSource.getMessage("login.required", null, locale));
-			redirectAttributes.addFlashAttribute("returnUrl", request.getRequestURL());
+			redirectAttributes.addFlashAttribute(Defines.ALERT_MESSAGE, messageSource.getMessage("required.login", null, locale));
+			redirectAttributes.addFlashAttribute(Defines.RETURN_URL, request.getRequestURL());
 			return "redirect:/admin/member/login";
 		}
 		
@@ -83,8 +84,8 @@ public class AdminNoticeController {
 		String member_id = StringUtil.getString(session.getAttribute("SESSION_MEMBER_ID"));
 		int member_level = StringUtil.getInt(session.getAttribute("SESSION_MEMBER_LEVEL"));
 		if(StringUtil.isEmpty(member_id) || member_level < 90){
-			redirectAttributes.addFlashAttribute("alertMessage", messageSource.getMessage("login.required", null, locale));
-			redirectAttributes.addFlashAttribute("returnUrl", request.getRequestURL());
+			redirectAttributes.addFlashAttribute(Defines.ALERT_MESSAGE, messageSource.getMessage("required.login", null, locale));
+			redirectAttributes.addFlashAttribute(Defines.RETURN_URL, request.getRequestURL());
 			return "redirect:/admin/member/login";
 		}
 		noticeVO = noticeService.selectNotice(noticeVO);
@@ -105,8 +106,8 @@ public class AdminNoticeController {
 		String member_id = StringUtil.getString(session.getAttribute("SESSION_MEMBER_ID"));
 		int member_level = StringUtil.getInt(session.getAttribute("SESSION_MEMBER_LEVEL"));
 		if(StringUtil.isEmpty(member_id) || member_level < 90){
-			redirectAttributes.addFlashAttribute("alertMessage", messageSource.getMessage("login.required", null, locale));
-			redirectAttributes.addFlashAttribute("returnUrl", request.getRequestURL());
+			redirectAttributes.addFlashAttribute(Defines.ALERT_MESSAGE, messageSource.getMessage("required.login", null, locale));
+			redirectAttributes.addFlashAttribute(Defines.RETURN_URL, request.getRequestURL());
 			return "redirect:/admin/member/login";
 		}
 		
@@ -122,8 +123,8 @@ public class AdminNoticeController {
 		String member_nickname = StringUtil.getString(session.getAttribute("SESSION_MEMBER_NICKNAME"));
 		int member_level = StringUtil.getInt(session.getAttribute("SESSION_MEMBER_LEVEL"));
 		if(StringUtil.isEmpty(member_id) || member_level < 90){
-			redirectAttributes.addFlashAttribute("alertMessage", messageSource.getMessage("login.required", null, locale));
-			redirectAttributes.addFlashAttribute("returnUrl", request.getRequestURL());
+			redirectAttributes.addFlashAttribute(Defines.ALERT_MESSAGE, messageSource.getMessage("access.wrong", null, locale));
+			redirectAttributes.addFlashAttribute(Defines.RETURN_URL, request.getRequestURL());
 			return "redirect:/admin/member/login";
 		}
 		
@@ -133,9 +134,9 @@ public class AdminNoticeController {
 		
 		int result = noticeService.insertNotice(noticeVO);
 		if(result > 0){
-			//redirectAttributes.addFlashAttribute("alertMessage", messageSource.getMessage("insert.complete", null, locale));
+			//redirectAttributes.addFlashAttribute(Defines.ALERT_MESSAGE, messageSource.getMessage("register.complete", null, locale));
 		}else{
-			redirectAttributes.addFlashAttribute("alertMessage", messageSource.getMessage("insert.error", null, locale));
+			redirectAttributes.addFlashAttribute(Defines.ALERT_MESSAGE, messageSource.getMessage("register.error", null, locale));
 		}
 		
 		return "redirect:/admin/notice/view?notice_seq="+noticeVO.getNotice_seq();
@@ -148,8 +149,8 @@ public class AdminNoticeController {
 		String member_id = StringUtil.getString(session.getAttribute("SESSION_MEMBER_ID"));
 		int member_level = StringUtil.getInt(session.getAttribute("SESSION_MEMBER_LEVEL"));
 		if(StringUtil.isEmpty(member_id) || member_level < 90){
-			redirectAttributes.addFlashAttribute("alertMessage", messageSource.getMessage("login.required", null, locale));
-			redirectAttributes.addFlashAttribute("returnUrl", request.getRequestURL());
+			redirectAttributes.addFlashAttribute(Defines.ALERT_MESSAGE, messageSource.getMessage("required.login", null, locale));
+			redirectAttributes.addFlashAttribute(Defines.RETURN_URL, request.getRequestURL());
 			return "redirect:/admin/member/login";
 		}
 		
@@ -169,8 +170,8 @@ public class AdminNoticeController {
 		String member_nickname = StringUtil.getString(session.getAttribute("SESSION_MEMBER_NICKNAME"));
 		int member_level = StringUtil.getInt(session.getAttribute("SESSION_MEMBER_LEVEL"));
 		if(StringUtil.isEmpty(member_id) || member_level < 90){
-			redirectAttributes.addFlashAttribute("alertMessage", messageSource.getMessage("login.required", null, locale));
-			redirectAttributes.addFlashAttribute("returnUrl", request.getRequestURL());
+			redirectAttributes.addFlashAttribute(Defines.ALERT_MESSAGE, messageSource.getMessage("access.wrong", null, locale));
+			redirectAttributes.addFlashAttribute(Defines.RETURN_URL, request.getRequestURL());
 			return "redirect:/admin/member/login";
 		}
 		
@@ -180,9 +181,9 @@ public class AdminNoticeController {
 		
 		int result = noticeService.updateNotice(noticeVO);
 		if(result > 0){
-			//redirectAttributes.addFlashAttribute("alertMessage", messageSource.getMessage("update.complete", null, locale));
+			//redirectAttributes.addFlashAttribute(Defines.ALERT_MESSAGE, messageSource.getMessage("modify.complete", null, locale));
 		}else{
-			redirectAttributes.addFlashAttribute("alertMessage", messageSource.getMessage("update.error", null, locale));
+			redirectAttributes.addFlashAttribute(Defines.ALERT_MESSAGE, messageSource.getMessage("modify.error", null, locale));
 		}
 		
 		return "redirect:/admin/notice/view?notice_seq="+noticeVO.getNotice_seq();
@@ -196,8 +197,8 @@ public class AdminNoticeController {
 		String member_nickname = StringUtil.getString(session.getAttribute("SESSION_MEMBER_NICKNAME"));
 		int member_level = StringUtil.getInt(session.getAttribute("SESSION_MEMBER_LEVEL"));
 		if(StringUtil.isEmpty(member_id) || member_level < 90){
-			redirectAttributes.addFlashAttribute("alertMessage", messageSource.getMessage("login.required", null, locale));
-			redirectAttributes.addFlashAttribute("returnUrl", request.getContextPath()+"/admin/notice/list");
+			redirectAttributes.addFlashAttribute(Defines.ALERT_MESSAGE, messageSource.getMessage("required.login", null, locale));
+			redirectAttributes.addFlashAttribute(Defines.RETURN_URL, request.getContextPath()+"/admin/notice/list");
 			return "redirect:/admin/member/login";
 		}
 		
@@ -207,9 +208,9 @@ public class AdminNoticeController {
 		
 		int result = noticeService.deleteNotice(noticeVO);
 		if(result > 0){
-			//redirectAttributes.addFlashAttribute("alertMessage", messageSource.getMessage("delete.complete", null, locale));
+			//redirectAttributes.addFlashAttribute(Defines.ALERT_MESSAGE, messageSource.getMessage("delete.complete", null, locale));
 		}else{
-			redirectAttributes.addFlashAttribute("alertMessage", messageSource.getMessage("delete.error", null, locale));
+			redirectAttributes.addFlashAttribute(Defines.ALERT_MESSAGE, messageSource.getMessage("delete.error", null, locale));
 		}
 		
 		return "redirect:/admin/notice/list";

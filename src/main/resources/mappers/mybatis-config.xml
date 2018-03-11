@@ -23,7 +23,6 @@
      	<mapper resource="mappers/notice/noticeReply.xml"/>
      	<mapper resource="mappers/ask/ask.xml"/>
      	
-     	<mapper resource="mappers/member/join.xml"/>
      	<mapper resource="mappers/member/login.xml"/>
      	<mapper resource="mappers/member/member.xml"/>
      	<mapper resource="mappers/member/search.xml"/>

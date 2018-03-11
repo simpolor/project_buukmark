@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import com.simpolor.app.Defines;
 import com.simpolor.app.ask.service.AskService;
 import com.simpolor.app.ask.vo.AskVO;
 import com.simpolor.app.common.util.PageNavigation;
@@ -43,8 +44,8 @@ public class AdminAskController {
 		String member_id = StringUtil.getString(session.getAttribute("SESSION_MEMBER_ID"));
 		int member_level = StringUtil.getInt(session.getAttribute("SESSION_MEMBER_LEVEL"));
 		if(StringUtil.isEmpty(member_id) || member_level < 90){
-			redirectAttributes.addFlashAttribute("alertMessage", messageSource.getMessage("login.required", null, locale));
-			redirectAttributes.addFlashAttribute("returnUrl", request.getRequestURL());
+			redirectAttributes.addFlashAttribute(Defines.ALERT_MESSAGE, messageSource.getMessage("required.login", null, locale));
+			redirectAttributes.addFlashAttribute(Defines.RETURN_URL, request.getRequestURL());
 			return "redirect:/admin/member/login";
 		}
 		
@@ -78,8 +79,8 @@ public class AdminAskController {
 		String member_id = StringUtil.getString(session.getAttribute("SESSION_MEMBER_ID"));
 		int member_level = StringUtil.getInt(session.getAttribute("SESSION_MEMBER_LEVEL"));
 		if(StringUtil.isEmpty(member_id) || member_level < 90){
-			redirectAttributes.addFlashAttribute("alertMessage", messageSource.getMessage("login.required", null, locale));
-			redirectAttributes.addFlashAttribute("returnUrl", request.getRequestURL());
+			redirectAttributes.addFlashAttribute(Defines.ALERT_MESSAGE, messageSource.getMessage("required.login", null, locale));
+			redirectAttributes.addFlashAttribute(Defines.RETURN_URL, request.getRequestURL());
 			return "redirect:/admin/member/login";
 		}
 		
@@ -95,8 +96,8 @@ public class AdminAskController {
 		String member_id = StringUtil.getString(session.getAttribute("SESSION_MEMBER_ID"));
 		int member_level = StringUtil.getInt(session.getAttribute("SESSION_MEMBER_LEVEL"));
 		if(StringUtil.isEmpty(member_id) || member_level < 90){
-			redirectAttributes.addFlashAttribute("alertMessage", messageSource.getMessage("login.required", null, locale));
-			redirectAttributes.addFlashAttribute("returnUrl", request.getRequestURL());
+			redirectAttributes.addFlashAttribute(Defines.ALERT_MESSAGE, messageSource.getMessage("required.login", null, locale));
+			redirectAttributes.addFlashAttribute(Defines.RETURN_URL, request.getRequestURL());
 			return "redirect:/admin/member/login";
 		}
 		
@@ -112,8 +113,8 @@ public class AdminAskController {
 		String member_nickname = StringUtil.getString(session.getAttribute("SESSION_MEMBER_NICKNAME"));
 		int member_level = StringUtil.getInt(session.getAttribute("SESSION_MEMBER_LEVEL"));
 		if(StringUtil.isEmpty(member_id) || member_level < 90){
-			redirectAttributes.addFlashAttribute("alertMessage", messageSource.getMessage("login.required", null, locale));
-			redirectAttributes.addFlashAttribute("returnUrl", request.getRequestURL());
+			redirectAttributes.addFlashAttribute(Defines.ALERT_MESSAGE, messageSource.getMessage("access.wrong", null, locale));
+			redirectAttributes.addFlashAttribute(Defines.RETURN_URL, request.getRequestURL());
 			return "redirect:/admin/member/login";
 		}
 		
@@ -124,9 +125,9 @@ public class AdminAskController {
 		
 		int result = askService.insertAsk(askVO);
 		if(result > 0){
-			//redirectAttributes.addFlashAttribute("alertMessage", messageSource.getMessage("insert.complete", null, locale));
+			//redirectAttributes.addFlashAttribute(Defines.ALERT_MESSAGE, messageSource.getMessage("register.complete", null, locale));
 		}else{
-			redirectAttributes.addFlashAttribute("alertMessage", messageSource.getMessage("insert.error", null, locale));
+			redirectAttributes.addFlashAttribute(Defines.ALERT_MESSAGE, messageSource.getMessage("register.error", null, locale));
 		}
 		
 		return "redirect:/admin/ask/view?ask_seq="+askVO.getAsk_seq();
@@ -139,7 +140,7 @@ public class AdminAskController {
 		String member_id = StringUtil.getString(session.getAttribute("SESSION_MEMBER_ID"));
 		int member_level = StringUtil.getInt(session.getAttribute("SESSION_MEMBER_LEVEL"));
 		if(StringUtil.isEmpty(member_id) || member_level < 90){
-			redirectAttributes.addFlashAttribute("alertMessage", messageSource.getMessage("login.required", null, locale));
+			redirectAttributes.addFlashAttribute("alertMessage", messageSource.getMessage("required.login", null, locale));
 			redirectAttributes.addFlashAttribute("returnUrl", request.getRequestURL());
 			return "redirect:/admin/member/login";
 		}
@@ -160,7 +161,7 @@ public class AdminAskController {
 		String member_nickname = StringUtil.getString(session.getAttribute("SESSION_MEMBER_NICKNAME"));
 		int member_level = StringUtil.getInt(session.getAttribute("SESSION_MEMBER_LEVEL"));
 		if(StringUtil.isEmpty(member_id) || member_level < 90){
-			redirectAttributes.addFlashAttribute("alertMessage", messageSource.getMessage("login.required", null, locale));
+			redirectAttributes.addFlashAttribute("alertMessage", messageSource.getMessage("access.wrong", null, locale));
 			redirectAttributes.addFlashAttribute("returnUrl", request.getRequestURL());
 			return "redirect:/admin/member/login";
 		}
@@ -172,9 +173,9 @@ public class AdminAskController {
 		
 		int result = askService.updateAsk(askVO);
 		if(result > 0){
-			//redirectAttributes.addFlashAttribute("alertMessage", messageSource.getMessage("update.complete", null, locale));
+			//redirectAttributes.addFlashAttribute("alertMessage", messageSource.getMessage("modify.complete", null, locale));
 		}else{
-			redirectAttributes.addFlashAttribute("alertMessage", messageSource.getMessage("update.error", null, locale));
+			redirectAttributes.addFlashAttribute("alertMessage", messageSource.getMessage("modify.error", null, locale));
 		}
 		
 		return "redirect:/admin/ask/view?ask_seq="+askVO.getAsk_seq();
@@ -189,7 +190,7 @@ public class AdminAskController {
 		String member_nickname = StringUtil.getString(session.getAttribute("SESSION_MEMBER_NICKNAME"));
 		int member_level = StringUtil.getInt(session.getAttribute("SESSION_MEMBER_LEVEL"));
 		if(StringUtil.isEmpty(member_id) || member_level < 90){
-			redirectAttributes.addFlashAttribute("alertMessage", messageSource.getMessage("login.required", null, locale));
+			redirectAttributes.addFlashAttribute("alertMessage", messageSource.getMessage("access.wrong", null, locale));
 			redirectAttributes.addFlashAttribute("returnUrl", request.getContextPath()+"/admin/ask/view?ask_seq="+askVO.getAsk_seq());
 			return "redirect:/admin/member/login";
 		}

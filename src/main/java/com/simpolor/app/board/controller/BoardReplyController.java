@@ -19,6 +19,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import com.simpolor.app.Defines;
 import com.simpolor.app.board.service.BoardReplyService;
 import com.simpolor.app.board.service.BoardService;
 import com.simpolor.app.board.vo.BoardReplyVO;
@@ -52,8 +53,8 @@ public class BoardReplyController {
 		String member_name = StringUtil.getString(session.getAttribute("SESSION_MEMBER_NAME"));
 		String member_nickname = StringUtil.getString(session.getAttribute("SESSION_MEMBER_NICKNAME"));
 		if(StringUtil.isEmpty(member_id)){
-			resultMap.put("result", "fail");
-			resultMap.put("reason", messageSource.getMessage("login.required", null, locale));
+			resultMap.put(Defines.ASYNC_RESULT, "success");
+			resultMap.put(Defines.ASYNC_REASON, messageSource.getMessage("access.wrong", null, locale));
 			return resultMap;
 		}
 		
@@ -65,11 +66,11 @@ public class BoardReplyController {
 		int result = boardReplyService.insertBoardReply(boardReplyVO);
 		if(result > 0){
 			List<BoardReplyVO> list = boardReplyService.selectBoardReplyList(boardReplyVO);
-			resultMap.put("result", "success");
-			resultMap.put("list", list);
+			resultMap.put(Defines.ASYNC_RESULT, "success");
+			resultMap.put(Defines.ASYNC_LIST, list);
 		}else{
-			resultMap.put("result", "fail");
-			resultMap.put("reason", messageSource.getMessage("result.not.found", null, locale));
+			resultMap.put(Defines.ASYNC_RESULT, "fail");
+			resultMap.put(Defines.ASYNC_REASON, messageSource.getMessage("result.notfound", null, locale));
 		}
 		
 		return resultMap;
@@ -86,8 +87,8 @@ public class BoardReplyController {
 		String member_name = StringUtil.getString(session.getAttribute("SESSION_MEMBER_NAME"));
 		String member_nickname = StringUtil.getString(session.getAttribute("SESSION_MEMBER_NICKNAME"));
 		if(StringUtil.isEmpty(member_id)){
-			resultMap.put("result", "fail");
-			resultMap.put("reason", messageSource.getMessage("login.required", null, locale));
+			resultMap.put(Defines.ASYNC_RESULT, "fail");
+			resultMap.put(Defines.ASYNC_REASON, messageSource.getMessage("access.wrong", null, locale));
 			return resultMap;
 		}
 		
@@ -99,11 +100,11 @@ public class BoardReplyController {
 		int result = boardReplyService.updateBoardReply(boardReplyVO);
 		if(result > 0){
 			List<BoardReplyVO> list = boardReplyService.selectBoardReplyList(boardReplyVO);
-			resultMap.put("result", "success");
-			resultMap.put("list", list);
+			resultMap.put(Defines.ASYNC_RESULT, "success");
+			resultMap.put(Defines.ASYNC_LIST, list);
 		}else{
-			resultMap.put("result", "fail");
-			resultMap.put("reason", messageSource.getMessage("result.not.found", null, locale));
+			resultMap.put(Defines.ASYNC_RESULT, "fail");
+			resultMap.put(Defines.ASYNC_REASON, messageSource.getMessage("result.notfound", null, locale));
 		}
 		
 		return resultMap;
@@ -120,8 +121,8 @@ public class BoardReplyController {
 		String member_name = StringUtil.getString(session.getAttribute("SESSION_MEMBER_NAME"));
 		String member_nickname = StringUtil.getString(session.getAttribute("SESSION_MEMBER_NICKNAME"));
 		if(StringUtil.isEmpty(member_id)){
-			resultMap.put("result", "fail");
-			resultMap.put("reason", messageSource.getMessage("login.required", null, locale));
+			resultMap.put(Defines.ASYNC_RESULT, "fail");
+			resultMap.put(Defines.ASYNC_REASON, messageSource.getMessage("access.wrong", null, locale));
 			return resultMap;
 		}
 		
@@ -132,11 +133,11 @@ public class BoardReplyController {
 		int result = boardReplyService.deleteBoardReply(boardReplyVO);
 		if(result > 0){
 			List<BoardReplyVO> list = boardReplyService.selectBoardReplyList(boardReplyVO);
-			resultMap.put("result", "success");
-			resultMap.put("list", list);
+			resultMap.put(Defines.ASYNC_RESULT, "success");
+			resultMap.put(Defines.ASYNC_LIST, list);
 		}else{
-			resultMap.put("result", "fail");
-			resultMap.put("reason", messageSource.getMessage("result.not.found", null, locale));
+			resultMap.put(Defines.ASYNC_RESULT, "fail");
+			resultMap.put(Defines.ASYNC_REASON, messageSource.getMessage("result.notfound", null, locale));
 		}
 		
 		return resultMap;

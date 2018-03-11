@@ -20,6 +20,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.simpolor.app.notice.service.NoticeReplyService;
 import com.simpolor.app.notice.vo.NoticeReplyVO;
+import com.simpolor.app.Defines;
 import com.simpolor.app.common.util.StringUtil;
 
 /**
@@ -48,8 +49,8 @@ public class NoticeReplyController {
 		String member_name = StringUtil.getString(session.getAttribute("SESSION_MEMBER_NAME"));
 		String member_nickname = StringUtil.getString(session.getAttribute("SESSION_MEMBER_NICKNAME"));
 		if(StringUtil.isEmpty(member_id)){
-			resultMap.put("result", "fail");
-			resultMap.put("reason", messageSource.getMessage("login.required", null, locale));
+			resultMap.put(Defines.ASYNC_RESULT, "fail");
+			resultMap.put(Defines.ASYNC_REASON, messageSource.getMessage("access.wrong", null, locale));
 			return resultMap;
 		}
 		
@@ -61,11 +62,11 @@ public class NoticeReplyController {
 		int result = noticeReplyService.insertNoticeReply(noticeReplyVO);
 		if(result > 0){
 			List<NoticeReplyVO> list = noticeReplyService.selectNoticeReplyList(noticeReplyVO);
-			resultMap.put("result", "success");
-			resultMap.put("list", list);
+			resultMap.put(Defines.ASYNC_RESULT, "success");
+			resultMap.put(Defines.ASYNC_LIST, list);
 		}else{
-			resultMap.put("result", "fail");
-			resultMap.put("reason", messageSource.getMessage("result.not.found", null, locale));
+			resultMap.put(Defines.ASYNC_RESULT, "fail");
+			resultMap.put(Defines.ASYNC_REASON, messageSource.getMessage("result.notfound", null, locale));
 		}
 		
 		return resultMap;
@@ -82,8 +83,8 @@ public class NoticeReplyController {
 		String member_name = StringUtil.getString(session.getAttribute("SESSION_MEMBER_NAME"));
 		String member_nickname = StringUtil.getString(session.getAttribute("SESSION_MEMBER_NICKNAME"));
 		if(StringUtil.isEmpty(member_id)){
-			resultMap.put("result", "fail");
-			resultMap.put("reason", messageSource.getMessage("login.required", null, locale));
+			resultMap.put(Defines.ASYNC_RESULT, "fail");
+			resultMap.put(Defines.ASYNC_REASON, messageSource.getMessage("access.wrong", null, locale));
 			return resultMap;
 		}
 		
@@ -95,11 +96,11 @@ public class NoticeReplyController {
 		int result = noticeReplyService.updateNoticeReply(noticeReplyVO);
 		if(result > 0){
 			List<NoticeReplyVO> list = noticeReplyService.selectNoticeReplyList(noticeReplyVO);
-			resultMap.put("result", "success");
-			resultMap.put("list", list);
+			resultMap.put(Defines.ASYNC_RESULT, "success");
+			resultMap.put(Defines.ASYNC_LIST, list);
 		}else{
-			resultMap.put("result", "fail");
-			resultMap.put("reason", messageSource.getMessage("result.not.found", null, locale));
+			resultMap.put(Defines.ASYNC_RESULT, "fail");
+			resultMap.put(Defines.ASYNC_REASON, messageSource.getMessage("result.notfound", null, locale));
 		}
 		
 		return resultMap;
@@ -116,8 +117,8 @@ public class NoticeReplyController {
 		String member_name = StringUtil.getString(session.getAttribute("SESSION_MEMBER_NAME"));
 		String member_nickname = StringUtil.getString(session.getAttribute("SESSION_MEMBER_NICKNAME"));
 		if(StringUtil.isEmpty(member_id)){
-			resultMap.put("result", "fail");
-			resultMap.put("reason", messageSource.getMessage("login.required", null, locale));
+			resultMap.put(Defines.ASYNC_RESULT, "fail");
+			resultMap.put(Defines.ASYNC_REASON, messageSource.getMessage("access.wrong", null, locale));
 			return resultMap;
 		}
 		
@@ -128,11 +129,11 @@ public class NoticeReplyController {
 		int result = noticeReplyService.deleteNoticeReply(noticeReplyVO);
 		if(result > 0){
 			List<NoticeReplyVO> list = noticeReplyService.selectNoticeReplyList(noticeReplyVO);
-			resultMap.put("result", "success");
-			resultMap.put("list", list);
+			resultMap.put(Defines.ASYNC_RESULT, "success");
+			resultMap.put(Defines.ASYNC_LIST, list);
 		}else{
-			resultMap.put("result", "fail");
-			resultMap.put("reason", messageSource.getMessage("result.not.found", null, locale));
+			resultMap.put(Defines.ASYNC_RESULT, "fail");
+			resultMap.put(Defines.ASYNC_REASON, messageSource.getMessage("result.notfound", null, locale));
 		}
 		
 		return resultMap;

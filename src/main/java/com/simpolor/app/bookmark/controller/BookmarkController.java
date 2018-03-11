@@ -19,6 +19,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import com.simpolor.app.Defines;
 import com.simpolor.app.bookmark.service.BookmarkService;
 import com.simpolor.app.bookmark.vo.BookmarkVO;
 import com.simpolor.app.common.util.PageInfinity;
@@ -107,11 +108,11 @@ public class BookmarkController {
 		List<BookmarkVO> list = bookmarkService.selectBookmarkList(bookmarkVO);
 		
 		if(list != null && list.size() > 0) {
-			resultMap.put("result", "success");
-			resultMap.put("list", list);
+			resultMap.put(Defines.ASYNC_RESULT, "success");
+			resultMap.put(Defines.ASYNC_LIST, list);
 		}else {
-			resultMap.put("result", "fail");
-			resultMap.put("reason", messageSource.getMessage("result.not.found", null, locale));
+			resultMap.put(Defines.ASYNC_RESULT, "fail");
+			resultMap.put(Defines.ASYNC_REASON, messageSource.getMessage("result.notfound", null, locale));
 		}
 		
 		return resultMap;
@@ -124,8 +125,8 @@ public class BookmarkController {
 		String member_name = StringUtil.getString(session.getAttribute("SESSION_MEMBER_NAME"));
 		String member_nickname = StringUtil.getString(session.getAttribute("SESSION_MEMBER_NICKNAME"));
 		if(StringUtil.isEmpty(member_id)){
-			redirectAttributes.addFlashAttribute("alertMessage", messageSource.getMessage("login.required", null, locale));
-			redirectAttributes.addFlashAttribute("returnUrl", request.getContextPath()+"/bookmark/myList");
+			redirectAttributes.addFlashAttribute(Defines.ALERT_MESSAGE, messageSource.getMessage("required.login", null, locale));
+			redirectAttributes.addFlashAttribute(Defines.RETURN_URL, request.getContextPath()+"/bookmark/myList");
 			return "redirect:/member/login";
 		}
 		
@@ -135,9 +136,9 @@ public class BookmarkController {
 		
 		int result = bookmarkService.insertBookmark(bookmarkVO);
 		if(result > 0){
-			redirectAttributes.addFlashAttribute("alertMessage", messageSource.getMessage("bookmark.register.complete", null, locale));
+			redirectAttributes.addFlashAttribute(Defines.ALERT_MESSAGE, messageSource.getMessage("bookmark.register.complete", null, locale));
 		}else{
-			redirectAttributes.addFlashAttribute("alertMessage", messageSource.getMessage("bookmark.register.fail", null, locale));
+			redirectAttributes.addFlashAttribute(Defines.ALERT_MESSAGE, messageSource.getMessage("bookmark.register.fail", null, locale));
 		}
 		
 		return "redirect:/bookmark/myList";
@@ -151,8 +152,8 @@ public class BookmarkController {
 		String member_name = StringUtil.getString(session.getAttribute("SESSION_MEMBER_NAME"));
 		String member_nickname = StringUtil.getString(session.getAttribute("SESSION_MEMBER_NICKNAME"));
 		if(StringUtil.isEmpty(member_id)){
-			redirectAttributes.addFlashAttribute("alertMessage", messageSource.getMessage("login.required", null, locale));
-			redirectAttributes.addFlashAttribute("returnUrl", request.getContextPath()+"/bookmark/myList");
+			redirectAttributes.addFlashAttribute(Defines.ALERT_MESSAGE, messageSource.getMessage("required.login", null, locale));
+			redirectAttributes.addFlashAttribute(Defines.RETURN_URL, request.getContextPath()+"/bookmark/myList");
 			return "redirect:/member/login";
 		}
 		
@@ -162,9 +163,9 @@ public class BookmarkController {
 		
 		int result = bookmarkService.deleteBookmark(bookmarkVO);
 		if(result > 0){
-			//redirectAttributes.addFlashAttribute("alertMessage", messageSource.getMessage("bookmark.delete.complete", null, locale));
+			//redirectAttributes.addFlashAttribute(Defines.ALERT_MESSAGE, messageSource.getMessage("bookmark.delete.complete", null, locale));
 		}else{
-			redirectAttributes.addFlashAttribute("alertMessage", messageSource.getMessage("bookmark.delete.error", null, locale));
+			redirectAttributes.addFlashAttribute(Defines.ALERT_MESSAGE, messageSource.getMessage("bookmark.delete.error", null, locale));
 		}
 		
 		return "redirect:/bookmark/myList";

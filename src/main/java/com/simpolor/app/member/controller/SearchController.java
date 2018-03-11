@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import com.simpolor.app.Defines;
 import com.simpolor.app.common.component.GenerateCharacter;
 import com.simpolor.app.common.component.MailSender;
 import com.simpolor.app.common.util.EncryptUtil;
@@ -52,7 +53,6 @@ public class SearchController {
 	public String search(HttpServletRequest request, RedirectAttributes redirectAttributes, Model model, MemberVO memberVO) {
 
 		memberVO = searchService.selectMemberSearch(memberVO);
-		
 		if(memberVO != null){
 			String tempPassword = generateCharacter.excuteGenerate("password", 10);
 			memberVO.setMember_pw(encryptUtil.getEncMD5(tempPassword));
@@ -75,16 +75,16 @@ public class SearchController {
 					redirectAttributes.addFlashAttribute("memberVO", memberVO);
 					return "redirect:/member/searchComplete";
 				}else{
-					model.addAttribute("alertMessage", messageSource.getMessage("result.error", null, locale));
+					model.addAttribute(Defines.ALERT_MESSAGE, messageSource.getMessage("result.error", null, locale));
 					return "/app/member/search";
 				}
 			}else{
-				model.addAttribute("alertMessage", messageSource.getMessage("result.error", null, locale));
+				model.addAttribute(Defines.ALERT_MESSAGE, messageSource.getMessage("result.error", null, locale));
 				return "/app/member/search";
 			}
 			
 		}else{
-			model.addAttribute("alertMessage", messageSource.getMessage("search.notmatch.info", null, locale));
+			model.addAttribute(Defines.ALERT_MESSAGE, messageSource.getMessage("member.notmatch", null, locale));
 			
 			return "/app/member/search";
 		}
@@ -96,7 +96,7 @@ public class SearchController {
 		
 		String member_id = StringUtil.getString(memberVO.getMember_id());
 		if(StringUtil.isEmpty(member_id)){
-			redirectAttributes.addFlashAttribute("alertMessage", messageSource.getMessage("path.access.required", null, locale));
+			redirectAttributes.addFlashAttribute(Defines.ALERT_MESSAGE, messageSource.getMessage("access.wrong", null, locale));
 			return "redirect:/member/login";
 		}
 
@@ -109,7 +109,7 @@ public class SearchController {
 		
 		String member_id = StringUtil.getString(memberVO.getMember_id());
 		if(StringUtil.isEmpty(member_id)){
-			redirectAttributes.addFlashAttribute("alertMessage", messageSource.getMessage("path.access.required", null, locale));
+			redirectAttributes.addFlashAttribute(Defines.ALERT_MESSAGE, messageSource.getMessage("required.login", null, locale));
 			return "redirect:/member/login";
 		}
 		
@@ -118,26 +118,31 @@ public class SearchController {
 	
 	@RequestMapping(value = "/member/change", method = RequestMethod.POST)
 	public String change(HttpServletRequest request, HttpSession session, RedirectAttributes redirectAttributes, Model model, MemberVO memberVO) {
+
+		String member_id = StringUtil.getString(memberVO.getMember_id());
+		if(StringUtil.isEmpty(member_id)){
+			redirectAttributes.addFlashAttribute(Defines.ALERT_MESSAGE, messageSource.getMessage("access.wrong", null, locale));
+			return "redirect:/member/login";
+		}
 		
-		String member_pw = memberVO.getMember_pw();
-		String member_pw2 = memberVO.getMember_pw2();
+		memberVO.setMember_id(memberVO.getMember_id());
 		
-		if(member_pw.equals(member_pw2)){
-			memberVO.setMember_pw(encryptUtil.getEncMD5(member_pw));
+		if(StringUtil.isEquals(memberVO.getMember_pw(), memberVO.getMember_pw2())){
+			memberVO.setMember_pw(encryptUtil.getEncMD5( memberVO.getMember_pw()));
 			int result = searchService.updateMemberChange(memberVO);
 			if(result > 0){
 				redirectAttributes.addFlashAttribute("memberVO", memberVO);
 
 				return "redirect:/member/changeComplete";
 			}else{
+				model.addAttribute(Defines.ALERT_MESSAGE, messageSource.getMessage("member.change.password.error", null, locale));
 				model.addAttribute("memberVO", memberVO);
-				model.addAttribute("alertMessage", messageSource.getMessage("search.change.password.error", null, locale));
 				
 				return "/app/member/change";
 			}
 		}else{
+			model.addAttribute(Defines.ALERT_MESSAGE, messageSource.getMessage("member.notmatch.password", null, locale));
 			model.addAttribute("memberVO", memberVO);
-			model.addAttribute("alertMessage", messageSource.getMessage("search.notmatch.password", null, locale));
 			
 			return "/app/member/change";
 		}
@@ -149,7 +154,7 @@ public class SearchController {
 		
 		String member_id = StringUtil.getString(memberVO.getMember_id());
 		if(StringUtil.isEmpty(member_id)){
-			redirectAttributes.addFlashAttribute("alertMessage", messageSource.getMessage("path.access.required", null, locale));
+			redirectAttributes.addFlashAttribute(Defines.ALERT_MESSAGE, messageSource.getMessage("access.wrong", null, locale));
 			return "redirect:/member/login";
 		}
 

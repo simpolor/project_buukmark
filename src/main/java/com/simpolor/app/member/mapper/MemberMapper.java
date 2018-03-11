@@ -14,6 +14,22 @@ public class MemberMapper {
 	@Autowired
 	private SqlSession sqlSession;
 	
+	public int selectMemberIdDupCheck(MemberVO memberVO){
+		return sqlSession.selectOne("selectMemberIdDupCheck", memberVO);
+	}
+	
+	public int selectMemberEmailDupCheck(MemberVO memberVO){
+		return sqlSession.selectOne("selectMemberEmailDupCheck", memberVO);
+	}
+	
+	public int selectMemberNicknameDupCheck(MemberVO memberVO){
+		return sqlSession.selectOne("selectMemberNicknameDupCheck", memberVO);
+	}
+	
+	public int insertMember(MemberVO memberVO){
+		return sqlSession.insert("insertMember", memberVO);
+	}
+	
 	public MemberVO selectMember(String member_id){
 		return sqlSession.selectOne("selectMember", member_id);
 	}
@@ -24,6 +40,10 @@ public class MemberMapper {
 	
 	public int updateMemberPassword(MemberVO memberVO){
 		return sqlSession.update("updateMemberPassword", memberVO);
+	}
+	
+	public int deleteMember(MemberVO memberVO){
+		return sqlSession.delete("deleteMember", memberVO);
 	}
 	
 	public int selectMemberConfirm(MemberVO memberVO){

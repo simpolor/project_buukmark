@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import com.simpolor.app.Defines;
 import com.simpolor.app.common.util.EncryptUtil;
 import com.simpolor.app.common.util.RSA;
 import com.simpolor.app.common.util.RSAUtil;
@@ -71,7 +72,7 @@ public class LoginController {
 	    session.removeAttribute("RSAprivateKey");
 	    
 	    if (key == null) {
-	    		redirectAttributes.addFlashAttribute("alertMessage", messageSource.getMessage("login.access.wrong", null, locale));
+	    		redirectAttributes.addFlashAttribute(Defines.ALERT_MESSAGE, messageSource.getMessage("access.wrong", null, locale));
 	        return "redirect:/member/login";
 	    }
 	 
@@ -100,13 +101,13 @@ public class LoginController {
 				return "redirect:/bookmark/list";
 				
 			}else{
-				redirectAttributes.addFlashAttribute("alertMessage", messageSource.getMessage("login.notmatch", null, locale));
+				redirectAttributes.addFlashAttribute(Defines.ALERT_MESSAGE, messageSource.getMessage("member.notmatch", null, locale));
 		        return "redirect:/member/login";
 			}
 	        
 	    } catch (Exception e) {
 	    	e.printStackTrace();
-	    	redirectAttributes.addFlashAttribute("alertMessage", messageSource.getMessage("login.access.wrong", null, locale));
+	    	redirectAttributes.addFlashAttribute(Defines.ALERT_MESSAGE, messageSource.getMessage("access.wrong", null, locale));
 	        return "redirect:/member/login";
 	    }
 		

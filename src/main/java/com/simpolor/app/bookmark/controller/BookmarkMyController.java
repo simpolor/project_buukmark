@@ -19,6 +19,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import com.simpolor.app.Defines;
 import com.simpolor.app.board.vo.BoardReplyVO;
 import com.simpolor.app.bookmark.service.BookmarkMyService;
 import com.simpolor.app.bookmark.service.BookmarkService;
@@ -50,8 +51,8 @@ public class BookmarkMyController {
 		
 		String member_id = StringUtil.getString(session.getAttribute("SESSION_MEMBER_ID"));
 		if(StringUtil.isEmpty(member_id)){
-			redirectAttributes.addFlashAttribute("alertMessage", messageSource.getMessage("login.required", null, locale));
-			redirectAttributes.addFlashAttribute("returnUrl", request.getRequestURL());
+			redirectAttributes.addFlashAttribute(Defines.ALERT_MESSAGE, messageSource.getMessage("required.login", null, locale));
+			redirectAttributes.addFlashAttribute(Defines.RETURN_URL, request.getRequestURL());
 			return "redirect:/member/login";
 		}
 		
@@ -95,8 +96,8 @@ public class BookmarkMyController {
 		String member_name = StringUtil.getString(session.getAttribute("SESSION_MEMBER_NAME"));
 		String member_nickname = StringUtil.getString(session.getAttribute("SESSION_MEMBER_NICKNAME"));
 		if(StringUtil.isEmpty(member_id)){
-			resultMap.put("result", "fail");
-			resultMap.put("reason", messageSource.getMessage("login.required", null, locale));
+			resultMap.put(Defines.ASYNC_RESULT, "fail");
+			resultMap.put(Defines.ASYNC_REASON, messageSource.getMessage("access.wrong", null, locale));
 			return resultMap;
 		}
 		
@@ -107,11 +108,11 @@ public class BookmarkMyController {
 		int result = bookmarkMyService.insertBookmarkMy(bookmarkVO);
 		if(result > 0){
 			BookmarkVO bookmark = bookmarkService.selectBookmark(bookmarkVO);
-			resultMap.put("result", "success");
-			resultMap.put("bookmark", bookmark);
+			resultMap.put(Defines.ASYNC_RESULT, "success");
+			resultMap.put(Defines.ASYNC_BOOKMARK, bookmark);
 		}else{
-			resultMap.put("result", "fail");
-			resultMap.put("reason", messageSource.getMessage("result.not.found", null, locale));
+			resultMap.put(Defines.ASYNC_RESULT, "fail");
+			resultMap.put(Defines.ASYNC_REASON, messageSource.getMessage("result.notfound", null, locale));
 		}
 		
 		return resultMap;
@@ -127,8 +128,8 @@ public class BookmarkMyController {
 		String member_name = StringUtil.getString(session.getAttribute("SESSION_MEMBER_NAME"));
 		String member_nickname = StringUtil.getString(session.getAttribute("SESSION_MEMBER_NICKNAME"));
 		if(StringUtil.isEmpty(member_id)){
-			resultMap.put("result", "fail");
-			resultMap.put("reason", messageSource.getMessage("login.required", null, locale));
+			resultMap.put(Defines.ASYNC_RESULT, "fail");
+			resultMap.put(Defines.ASYNC_REASON, messageSource.getMessage("access.wrong", null, locale));
 			return resultMap;
 		}
 
@@ -140,11 +141,11 @@ public class BookmarkMyController {
 		int result = bookmarkMyService.deleteBookmarkMy(bookmarkVO);
 		if(result > 0){
 			BookmarkVO bookmark = bookmarkService.selectBookmark(bookmarkVO);
-			resultMap.put("result", "success");
-			resultMap.put("bookmark", bookmark);
+			resultMap.put(Defines.ASYNC_RESULT, "success");
+			resultMap.put(Defines.ASYNC_BOOKMARK, bookmark);
 		}else{
-			resultMap.put("result", "fail");
-			resultMap.put("reason", messageSource.getMessage("result.not.found", null, locale));
+			resultMap.put(Defines.ASYNC_RESULT, "fail");
+			resultMap.put(Defines.ASYNC_REASON, messageSource.getMessage("result.notfound", null, locale));
 		}
 		
 		return resultMap;
@@ -157,8 +158,8 @@ public class BookmarkMyController {
 		String member_name = StringUtil.getString(session.getAttribute("SESSION_MEMBER_NAME"));
 		String member_nickname = StringUtil.getString(session.getAttribute("SESSION_MEMBER_NICKNAME"));
 		if(StringUtil.isEmpty(member_id)){
-			redirectAttributes.addFlashAttribute("alertMessage", messageSource.getMessage("login.required", null, locale));
-			redirectAttributes.addFlashAttribute("returnUrl", request.getRequestURL());
+			redirectAttributes.addFlashAttribute(Defines.ALERT_MESSAGE, messageSource.getMessage("access.wrong", null, locale));
+			redirectAttributes.addFlashAttribute(Defines.RETURN_URL, request.getRequestURL());
 			return "redirect:/member/login";
 		}
 		
@@ -169,9 +170,9 @@ public class BookmarkMyController {
 		
 		int result = bookmarkMyService.deleteBookmarkMy(bookmarkVO);
 		if(result > 0){
-			//redirectAttributes.addFlashAttribute("alertMessage", messageSource.getMessage("bookmark.delete.complete", null, locale));
+			//redirectAttributes.addFlashAttribute(Defines.ALERT_MESSAGE, messageSource.getMessage("bookmark.delete.complete", null, locale));
 		}else{
-			redirectAttributes.addFlashAttribute("alertMessage", messageSource.getMessage("bookmark.delete.error", null, locale));
+			redirectAttributes.addFlashAttribute(Defines.ALERT_MESSAGE, messageSource.getMessage("bookmark.delete.error", null, locale));
 		}
 		
 		return "redirect:/bookmark/myList";

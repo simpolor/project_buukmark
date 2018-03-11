@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import com.simpolor.app.Defines;
 import com.simpolor.app.common.util.EncryptUtil;
 import com.simpolor.app.common.util.StringUtil;
 import com.simpolor.app.common.util.ValidateUtil;
@@ -39,7 +40,7 @@ public class MemberController {
 		
 		String member_id = StringUtil.getString(session.getAttribute("SESSION_MEMBER_ID"));
 		if(StringUtil.isEmpty(member_id)){
-			redirectAttributes.addFlashAttribute("alertMessage", messageSource.getMessage("login.required", null, locale));
+			redirectAttributes.addFlashAttribute(Defines.ALERT_MESSAGE, messageSource.getMessage("required.login", null, locale));
 			return "redirect:/member/login";
 		}
 		
@@ -56,7 +57,7 @@ public class MemberController {
 		
 		String member_id = StringUtil.getString(session.getAttribute("SESSION_MEMBER_ID"));
 		if(StringUtil.isEmpty(member_id)){
-			redirectAttributes.addFlashAttribute("alertMessage", messageSource.getMessage("login.required", null, locale));
+			redirectAttributes.addFlashAttribute(Defines.ALERT_MESSAGE, messageSource.getMessage("required.login", null, locale));
 			return "redirect:/member/login";
 		}
 		
@@ -72,49 +73,56 @@ public class MemberController {
 		
 		String member_id = StringUtil.getString(session.getAttribute("SESSION_MEMBER_ID"));
 		if(StringUtil.isEmpty(member_id)){
-			redirectAttributes.addFlashAttribute("alertMessage", messageSource.getMessage("login.required", null, locale));
+			redirectAttributes.addFlashAttribute(Defines.ALERT_MESSAGE, messageSource.getMessage("access.wrong", null, locale));
 			return "redirect:/member/login";
 		}
 		
-		String member_name = StringUtil.getString(memberVO.getMember_name());
-		String member_nickname = StringUtil.getString(memberVO.getMember_nickname());
-		String member_email = StringUtil.getString(memberVO.getMember_email());
-		
 		// 이름 유효성검사
-		if(!ValidateUtil.isName(member_name, 2, 25)){
+		if(!ValidateUtil.isName(memberVO.getMember_name(), 2, 25)){
+			model.addAttribute(Defines.ALERT_MESSAGE, messageSource.getMessage("required.name", null, locale));
 			model.addAttribute("memberVO", memberVO);
-			model.addAttribute("alertMessage", messageSource.getMessage("require.name", null, locale));
 			
-			return "/app/member/join";
+			return "/app/member/edit";
 		}
 				
 		// 닉네임 유효성검사
-		if(!ValidateUtil.isNickname(member_nickname, 2, 25)){
+		if(!ValidateUtil.isNickname(memberVO.getMember_nickname(), 2, 25)){
+			model.addAttribute(Defines.ALERT_MESSAGE, messageSource.getMessage("required.nickname", null, locale));
 			model.addAttribute("memberVO", memberVO);
-			model.addAttribute("alertMessage", messageSource.getMessage("require.nickname", null, locale));
 			
-			return "/app/member/join";
+			return "/app/member/edit";
 		}
 				
 		// 이메일 유효성검사
-		if(!ValidateUtil.isEmail(member_email)){
+		if(!ValidateUtil.isEmail(memberVO.getMember_email())){
+			model.addAttribute(Defines.ALERT_MESSAGE, messageSource.getMessage("required.email", null, locale));
 			model.addAttribute("memberVO", memberVO);
-			model.addAttribute("alertMessage", messageSource.getMessage("require.email", null, locale));
 			
-			return "/app/member/join";
+			return "/app/member/edit";
 		}
 				
 		memberVO.setMember_id(member_id);
-		memberVO.setMember_name(member_name);
-		memberVO.setMember_nickname(member_nickname);
-		memberVO.setMember_email(member_email);
 		
-		int result = memberService.updateMember(memberVO);
-		if(result > 0){
-			redirectAttributes.addFlashAttribute("alertMessage", messageSource.getMessage("member.change.profile.complete", null, locale));
-			return "redirect:/member/view";
+		int emailDupCheckResult = memberService.selectMemberEmailDupCheck(memberVO);
+		if(emailDupCheckResult == 0){
+			int nicknameDupCheckResult = memberService.selectMemberNicknameDupCheck(memberVO);
+			if(nicknameDupCheckResult == 0){
+				int result = memberService.updateMember(memberVO);
+				if(result > 0){
+					redirectAttributes.addFlashAttribute(Defines.ALERT_MESSAGE, messageSource.getMessage("member.change.profile.complete", null, locale));
+					return "redirect:/member/view";
+				}else{
+					model.addAttribute(Defines.ALERT_MESSAGE, messageSource.getMessage("member.change.profile.error", null, locale));
+					return "/app/member/edit";
+				}
+			}else{
+				model.addAttribute(Defines.ALERT_MESSAGE, messageSource.getMessage("member.duplication.nickname", null, locale));
+				model.addAttribute("memberVO", memberVO);
+				return "/app/member/edit";
+			}
 		}else{
-			model.addAttribute("alertMessage", redirectAttributes.addFlashAttribute("alertMessage", messageSource.getMessage("member.change.profile.error", null, locale)));
+			model.addAttribute(Defines.ALERT_MESSAGE, messageSource.getMessage("member.duplication.email", null, locale));
+			model.addAttribute("memberVO", memberVO);
 			return "/app/member/edit";
 		}
 	}
@@ -125,7 +133,7 @@ public class MemberController {
 		
 		String member_id = StringUtil.getString(session.getAttribute("SESSION_MEMBER_ID"));
 		if(StringUtil.isEmpty(member_id)){
-			redirectAttributes.addFlashAttribute("alertMessage", messageSource.getMessage("login.required", null, locale));
+			redirectAttributes.addFlashAttribute(Defines.ALERT_MESSAGE, messageSource.getMessage("required.login", null, locale));
 			return "redirect:/member/login";
 		}
 		
@@ -142,7 +150,7 @@ public class MemberController {
 		
 		String member_id = StringUtil.getString(session.getAttribute("SESSION_MEMBER_ID"));
 		if(StringUtil.isEmpty(member_id)){
-			redirectAttributes.addFlashAttribute("alertMessage", messageSource.getMessage("login.required", null, locale));
+			redirectAttributes.addFlashAttribute(Defines.ALERT_MESSAGE, messageSource.getMessage("access.wrong", null, locale));
 			return "redirect:/member/login";
 		}
 		
@@ -160,26 +168,26 @@ public class MemberController {
 				int result = memberService.updateMemberPassword(memberVO);
 				
 				if(result > 0){
-					redirectAttributes.addFlashAttribute("alertMessage", messageSource.getMessage("member.change.password.complete", null, locale));
+					redirectAttributes.addFlashAttribute(Defines.ALERT_MESSAGE, messageSource.getMessage("member.change.password.complete", null, locale));
 					
 					return "redirect:/member/view";
 				}else{
 					memberVO.setMember_pw("");
 					memberVO.setMember_pw2("");
+					model.addAttribute(Defines.ALERT_MESSAGE, messageSource.getMessage("member.change.password.error", null, locale));
 					model.addAttribute("memberVO", memberVO);
-					model.addAttribute("alertMessage", messageSource.getMessage("member.change.password.error", null, locale));
 					
 					return "/app/member/password";
 				}
 			}else{
+				model.addAttribute(Defines.ALERT_MESSAGE, messageSource.getMessage("member.notmatch.password.old", null, locale));
 				model.addAttribute("memberVO", memberVO);
-				model.addAttribute("alertMessage", messageSource.getMessage("member.notmatch.password.old", null, locale));
 				
 				return "/app/member/password";
 			}
 		}else{
+			model.addAttribute(Defines.ALERT_MESSAGE, messageSource.getMessage("member.notmatch.password.new", null, locale));
 			model.addAttribute("memberVO", memberVO);
-			model.addAttribute("alertMessage", messageSource.getMessage("member.notmatch.password.new", null, locale));
 			
 			return "/app/member/password";
 		}

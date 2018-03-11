@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import com.simpolor.app.Defines;
 import com.simpolor.app.board.vo.BoardVO;
 import com.simpolor.app.common.util.EncryptUtil;
 import com.simpolor.app.common.util.PageNavigation;
@@ -41,7 +42,7 @@ public class AdminMemberController {
 		String member_id = StringUtil.getString(session.getAttribute("SESSION_MEMBER_ID"));
 		int member_level = StringUtil.getInt(session.getAttribute("SESSION_MEMBER_LEVEL"));
 		if(StringUtil.isEmpty(member_id) || member_level < 90){
-			redirectAttributes.addFlashAttribute("alertMessage", messageSource.getMessage("login.required", null, locale));
+			redirectAttributes.addFlashAttribute(Defines.ALERT_MESSAGE, messageSource.getMessage("required.login", null, locale));
 			redirectAttributes.addFlashAttribute("returnUrl", request.getRequestURL());
 			return "redirect:/admin/member/login";
 		}
@@ -76,8 +77,8 @@ public class AdminMemberController {
 		String member_id = StringUtil.getString(session.getAttribute("SESSION_MEMBER_ID"));
 		int member_level = StringUtil.getInt(session.getAttribute("SESSION_MEMBER_LEVEL"));
 		if(StringUtil.isEmpty(member_id) || member_level < 90){
-			redirectAttributes.addFlashAttribute("alertMessage", messageSource.getMessage("login.required", null, locale));
-			redirectAttributes.addFlashAttribute("returnUrl", request.getRequestURL());
+			redirectAttributes.addFlashAttribute(Defines.ALERT_MESSAGE, messageSource.getMessage("required.login", null, locale));
+			redirectAttributes.addFlashAttribute(Defines.RETURN_URL, request.getRequestURL());
 			return "redirect:/admin/member/login";
 		}
 		
@@ -95,8 +96,8 @@ public class AdminMemberController {
 		String member_id = StringUtil.getString(session.getAttribute("SESSION_MEMBER_ID"));
 		int member_level = StringUtil.getInt(session.getAttribute("SESSION_MEMBER_LEVEL"));
 		if(StringUtil.isEmpty(member_id) || member_level < 90){
-			redirectAttributes.addFlashAttribute("alertMessage", messageSource.getMessage("login.required", null, locale));
-			redirectAttributes.addFlashAttribute("returnUrl", request.getRequestURL());
+			redirectAttributes.addFlashAttribute(Defines.ALERT_MESSAGE, messageSource.getMessage("required.login", null, locale));
+			redirectAttributes.addFlashAttribute(Defines.RETURN_URL, request.getRequestURL());
 			return "redirect:/admin/member/login";
 		}
 		
@@ -113,8 +114,8 @@ public class AdminMemberController {
 		String member_id = StringUtil.getString(session.getAttribute("SESSION_MEMBER_ID"));
 		int member_level = StringUtil.getInt(session.getAttribute("SESSION_MEMBER_LEVEL"));
 		if(StringUtil.isEmpty(member_id) || member_level < 90){
-			redirectAttributes.addFlashAttribute("alertMessage", messageSource.getMessage("login.required", null, locale));
-			redirectAttributes.addFlashAttribute("returnUrl", request.getRequestURL());
+			redirectAttributes.addFlashAttribute(Defines.ALERT_MESSAGE, messageSource.getMessage("access.wrong", null, locale));
+			redirectAttributes.addFlashAttribute(Defines.RETURN_URL, request.getRequestURL());
 			return "redirect:/admin/member/login";
 		}
 		
@@ -124,10 +125,10 @@ public class AdminMemberController {
 		
 		int result = memberService.updateMember(memberVO);
 		if(result > 0){
-			redirectAttributes.addFlashAttribute("alertMessage", messageSource.getMessage("member.change.profile.complete", null, locale));
+			redirectAttributes.addFlashAttribute(Defines.ALERT_MESSAGE, messageSource.getMessage("member.change.profile.complete", null, locale));
 			return "redirect:/admin/member/view";
 		}else{
-			model.addAttribute("alertMessage", redirectAttributes.addFlashAttribute("alertMessage", messageSource.getMessage("member.change.profile.error", null, locale)));
+			model.addAttribute("alertMessage", redirectAttributes.addFlashAttribute(Defines.ALERT_MESSAGE, messageSource.getMessage("member.change.profile.error", null, locale)));
 			return "/app/member/adminEdit";
 		}
 	}
@@ -139,8 +140,8 @@ public class AdminMemberController {
 		String member_id = StringUtil.getString(session.getAttribute("SESSION_MEMBER_ID"));
 		int member_level = StringUtil.getInt(session.getAttribute("SESSION_MEMBER_LEVEL"));
 		if(StringUtil.isEmpty(member_id) || member_level < 90){
-			redirectAttributes.addFlashAttribute("alertMessage", messageSource.getMessage("login.required", null, locale));
-			redirectAttributes.addFlashAttribute("returnUrl", request.getRequestURL());
+			redirectAttributes.addFlashAttribute(Defines.ALERT_MESSAGE, messageSource.getMessage("required.login", null, locale));
+			redirectAttributes.addFlashAttribute(Defines.RETURN_URL, request.getRequestURL());
 			return "redirect:/admin/member/login";
 		}
 		
@@ -158,8 +159,8 @@ public class AdminMemberController {
 		String member_id = StringUtil.getString(session.getAttribute("SESSION_MEMBER_ID"));
 		int member_level = StringUtil.getInt(session.getAttribute("SESSION_MEMBER_LEVEL"));
 		if(StringUtil.isEmpty(member_id) || member_level < 90){
-			redirectAttributes.addFlashAttribute("alertMessage", messageSource.getMessage("login.required", null, locale));
-			redirectAttributes.addFlashAttribute("returnUrl", request.getRequestURL());
+			redirectAttributes.addFlashAttribute(Defines.ALERT_MESSAGE, messageSource.getMessage("access.wrong", null, locale));
+			redirectAttributes.addFlashAttribute(Defines.RETURN_URL, request.getRequestURL());
 			return "redirect:/admin/member/login";
 		}
 		
@@ -177,26 +178,24 @@ public class AdminMemberController {
 				
 				int result = memberService.updateMemberPassword(memberVO);
 				if(result > 0){
-					redirectAttributes.addFlashAttribute("alertMessage", messageSource.getMessage("member.change.password.complete", null, locale));
+					redirectAttributes.addFlashAttribute(Defines.ALERT_MESSAGE, messageSource.getMessage("member.change.password.complete", null, locale));
 					
 					return "redirect:/admin/member/view";
 				}else{
-					memberVO.setMember_pw("");
-					memberVO.setMember_pw2("");
+					model.addAttribute(Defines.ALERT_MESSAGE, messageSource.getMessage("member.change.password.error", null, locale));
 					model.addAttribute("memberVO", memberVO);
-					model.addAttribute("alertMessage", messageSource.getMessage("member.change.password.error", null, locale));
 					
 					return "/app/member/adminPassword";
 				}
 			}else{
+				model.addAttribute(Defines.ALERT_MESSAGE, messageSource.getMessage("member.notmatch.password.old", null, locale));
 				model.addAttribute("memberVO", memberVO);
-				model.addAttribute("alertMessage", messageSource.getMessage("member.notmatch.password.old", null, locale));
 				
 				return "/app/member/adminPassword";
 			}
 		}else{
+			model.addAttribute(Defines.ALERT_MESSAGE, messageSource.getMessage("member.notmatch.password.new", null, locale));
 			model.addAttribute("memberVO", memberVO);
-			model.addAttribute("alertMessage", messageSource.getMessage("member.notmatch.password.new", null, locale));
 			
 			return "/app/member/adminPassword";
 		}

@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import com.simpolor.app.Defines;
 import com.simpolor.app.ask.service.AskService;
 import com.simpolor.app.ask.vo.AskVO;
 import com.simpolor.app.common.util.PageNavigation;
@@ -72,7 +73,7 @@ public class AskController {
 		if("Y".equals(StringUtil.getString(askVO.getSecret_yn()))) {
 			String member_id = StringUtil.getString(session.getAttribute("SESSION_MEMBER_ID"));
 			if(!StringUtil.isEquals(member_id, askVO.getReg_id())){
-				redirectAttributes.addFlashAttribute("alertMessage", messageSource.getMessage("result.only.writer", null, locale));
+				redirectAttributes.addFlashAttribute(Defines.ALERT_MESSAGE, messageSource.getMessage("only.writer", null, locale));
 				return "redirect:/ask/list";
 			}
 		}
@@ -87,8 +88,8 @@ public class AskController {
 		
 		String member_id = StringUtil.getString(session.getAttribute("SESSION_MEMBER_ID"));
 		if(StringUtil.isEmpty(member_id)){
-			redirectAttributes.addFlashAttribute("alertMessage", messageSource.getMessage("login.required", null, locale));
-			redirectAttributes.addFlashAttribute("returnUrl", request.getRequestURL());
+			redirectAttributes.addFlashAttribute(Defines.ALERT_MESSAGE, messageSource.getMessage("required.login", null, locale));
+			redirectAttributes.addFlashAttribute(Defines.RETURN_URL, request.getRequestURL());
 			return "redirect:/member/login";
 		}
 		
@@ -103,8 +104,8 @@ public class AskController {
 		String member_name = StringUtil.getString(session.getAttribute("SESSION_MEMBER_NAME"));
 		String member_nickname = StringUtil.getString(session.getAttribute("SESSION_MEMBER_NICKNAME"));
 		if(StringUtil.isEmpty(member_id)){
-			redirectAttributes.addFlashAttribute("alertMessage", messageSource.getMessage("login.required", null, locale));
-			redirectAttributes.addFlashAttribute("returnUrl", request.getRequestURL());
+			redirectAttributes.addFlashAttribute(Defines.ALERT_MESSAGE, messageSource.getMessage("access.wrong", null, locale));
+			redirectAttributes.addFlashAttribute(Defines.RETURN_URL, request.getRequestURL());
 			return "redirect:/member/login";
 		}
 		
@@ -115,9 +116,9 @@ public class AskController {
 		
 		int result = askService.insertAsk(askVO);
 		if(result > 0){
-			//redirectAttributes.addFlashAttribute("alertMessage", messageSource.getMessage("insert.complete", null, locale));
+			//redirectAttributes.addFlashAttribute(Defines.ALERT_MESSAGE, messageSource.getMessage("register.complete", null, locale));
 		}else{
-			redirectAttributes.addFlashAttribute("alertMessage", messageSource.getMessage("insert.error", null, locale));
+			redirectAttributes.addFlashAttribute(Defines.ALERT_MESSAGE, messageSource.getMessage("register.error", null, locale));
 		}
 		
 		return "redirect:/ask/view?ask_seq="+askVO.getAsk_seq();
@@ -129,8 +130,8 @@ public class AskController {
 
 		String member_id = StringUtil.getString(session.getAttribute("SESSION_MEMBER_ID"));
 		if(StringUtil.isEmpty(member_id)){
-			redirectAttributes.addFlashAttribute("alertMessage", messageSource.getMessage("login.required", null, locale));
-			redirectAttributes.addFlashAttribute("returnUrl", request.getRequestURL());
+			redirectAttributes.addFlashAttribute(Defines.ALERT_MESSAGE, messageSource.getMessage("required.login", null, locale));
+			redirectAttributes.addFlashAttribute(Defines.RETURN_URL, request.getRequestURL());
 			return "redirect:/member/login";
 		}
 		
@@ -138,7 +139,7 @@ public class AskController {
 		//askVO.setAsk_content(StringUtil.replaceHtmlN(askVO.getAsk_content()));
 		
 		if(!StringUtil.isEquals(member_id, askVO.getReg_id())){
-			redirectAttributes.addFlashAttribute("alertMessage", messageSource.getMessage("result.only.writer", null, locale));
+			redirectAttributes.addFlashAttribute(Defines.ALERT_MESSAGE, messageSource.getMessage("only.writer", null, locale));
 			return "redirect:/ask/list";
 		}
 		
@@ -154,8 +155,8 @@ public class AskController {
 		String member_name = StringUtil.getString(session.getAttribute("SESSION_MEMBER_NAME"));
 		String member_nickname = StringUtil.getString(session.getAttribute("SESSION_MEMBER_NICKNAME"));
 		if(StringUtil.isEmpty(member_id)){
-			redirectAttributes.addFlashAttribute("alertMessage", messageSource.getMessage("login.required", null, locale));
-			redirectAttributes.addFlashAttribute("returnUrl", request.getRequestURL());
+			redirectAttributes.addFlashAttribute(Defines.ALERT_MESSAGE, messageSource.getMessage("access.wrong", null, locale));
+			redirectAttributes.addFlashAttribute(Defines.RETURN_URL, request.getRequestURL());
 			return "redirect:/member/login";
 		}
 		
@@ -166,9 +167,9 @@ public class AskController {
 		
 		int result = askService.updateAsk(askVO);
 		if(result > 0){
-			//redirectAttributes.addFlashAttribute("alertMessage", messageSource.getMessage("update.complete", null, locale));
+			//redirectAttributes.addFlashAttribute(Defines.ALERT_MESSAGE, messageSource.getMessage("modify.complete", null, locale));
 		}else{
-			redirectAttributes.addFlashAttribute("alertMessage", messageSource.getMessage("update.error", null, locale));
+			redirectAttributes.addFlashAttribute(Defines.ALERT_MESSAGE, messageSource.getMessage("modify.error", null, locale));
 		}
 		
 		return "redirect:/ask/view?ask_seq="+askVO.getAsk_seq();
@@ -181,8 +182,8 @@ public class AskController {
 		String member_name = StringUtil.getString(session.getAttribute("SESSION_MEMBER_NAME"));
 		String member_nickname = StringUtil.getString(session.getAttribute("SESSION_MEMBER_NICKNAME"));
 		if(StringUtil.isEmpty(member_id)){
-			redirectAttributes.addFlashAttribute("alertMessage", messageSource.getMessage("login.required", null, locale));
-			redirectAttributes.addFlashAttribute("returnUrl", request.getContextPath()+"/ask/view?ask_seq="+askVO.getAsk_seq());
+			redirectAttributes.addFlashAttribute(Defines.ALERT_MESSAGE, messageSource.getMessage("access.wrong", null, locale));
+			redirectAttributes.addFlashAttribute(Defines.RETURN_URL, request.getContextPath()+"/ask/view?ask_seq="+askVO.getAsk_seq());
 			return "redirect:/member/login";
 		}
 		
@@ -192,9 +193,9 @@ public class AskController {
 		
 		int result = askService.deleteAsk(askVO);
 		if(result > 0){
-			//redirectAttributes.addFlashAttribute("alertMessage", messageSource.getMessage("delete.complete", null, locale));
+			//redirectAttributes.addFlashAttribute(Defines.ALERT_MESSAGE, messageSource.getMessage("delete.complete", null, locale));
 		}else{
-			redirectAttributes.addFlashAttribute("alertMessage", messageSource.getMessage("delete.error", null, locale));
+			redirectAttributes.addFlashAttribute(Defines.ALERT_MESSAGE, messageSource.getMessage("delete.error", null, locale));
 		}
 		
 		return "redirect:/ask/list";

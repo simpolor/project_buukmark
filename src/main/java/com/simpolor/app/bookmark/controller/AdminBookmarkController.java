@@ -17,6 +17,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import com.simpolor.app.Defines;
 import com.simpolor.app.bookmark.service.BookmarkService;
 import com.simpolor.app.bookmark.vo.BookmarkVO;
 import com.simpolor.app.common.util.PageInfinity;
@@ -45,8 +46,8 @@ public class AdminBookmarkController {
 		String member_id = StringUtil.getString(session.getAttribute("SESSION_MEMBER_ID"));
 		int member_level = StringUtil.getInt(session.getAttribute("SESSION_MEMBER_LEVEL"));
 		if(StringUtil.isEmpty(member_id) || member_level < 90){
-			redirectAttributes.addFlashAttribute("alertMessage", messageSource.getMessage("login.required", null, locale));
-			redirectAttributes.addFlashAttribute("returnUrl", request.getRequestURL());
+			redirectAttributes.addFlashAttribute(Defines.ALERT_MESSAGE, messageSource.getMessage("required.login", null, locale));
+			redirectAttributes.addFlashAttribute(Defines.RETURN_URL, request.getRequestURL());
 			return "redirect:/admin/member/login";
 		}
 		
@@ -88,8 +89,8 @@ public class AdminBookmarkController {
 		String member_nickname = StringUtil.getString(session.getAttribute("SESSION_MEMBER_NICKNAME"));
 		int member_level = StringUtil.getInt(session.getAttribute("SESSION_MEMBER_LEVEL"));
 		if(StringUtil.isEmpty(member_id) || member_level < 90){
-			redirectAttributes.addFlashAttribute("alertMessage", messageSource.getMessage("login.required", null, locale));
-			redirectAttributes.addFlashAttribute("returnUrl", request.getContextPath()+"/bookmark/myList");
+			redirectAttributes.addFlashAttribute(Defines.ALERT_MESSAGE, messageSource.getMessage("required.login", null, locale));
+			redirectAttributes.addFlashAttribute(Defines.RETURN_URL, request.getContextPath()+"/bookmark/myList");
 			return "redirect:/admin/member/login";
 		}
 		
@@ -99,9 +100,9 @@ public class AdminBookmarkController {
 		
 		int result = bookmarkService.insertBookmark(bookmarkVO);
 		if(result > 0){
-			redirectAttributes.addFlashAttribute("alertMessage", messageSource.getMessage("bookmark.register.complete", null, locale));
+			redirectAttributes.addFlashAttribute(Defines.ALERT_MESSAGE, messageSource.getMessage("bookmark.register.complete", null, locale));
 		}else{
-			redirectAttributes.addFlashAttribute("alertMessage", messageSource.getMessage("bookmark.register.fail", null, locale));
+			redirectAttributes.addFlashAttribute(Defines.ALERT_MESSAGE, messageSource.getMessage("bookmark.register.fail", null, locale));
 		}
 		
 		return "redirect:/admin/bookmark/list";
@@ -116,8 +117,8 @@ public class AdminBookmarkController {
 		String member_nickname = StringUtil.getString(session.getAttribute("SESSION_MEMBER_NICKNAME"));
 		int member_level = StringUtil.getInt(session.getAttribute("SESSION_MEMBER_LEVEL"));
 		if(StringUtil.isEmpty(member_id) || member_level < 90){
-			redirectAttributes.addFlashAttribute("alertMessage", messageSource.getMessage("login.required", null, locale));
-			redirectAttributes.addFlashAttribute("returnUrl", request.getContextPath()+"/bookmark/myList");
+			redirectAttributes.addFlashAttribute(Defines.ALERT_MESSAGE, messageSource.getMessage("required.login", null, locale));
+			redirectAttributes.addFlashAttribute(Defines.RETURN_URL, request.getContextPath()+"/bookmark/myList");
 			return "redirect:/admin/member/login";
 		}
 		
@@ -127,9 +128,9 @@ public class AdminBookmarkController {
 		
 		int result = bookmarkService.deleteBookmark(bookmarkVO);
 		if(result > 0){
-			redirectAttributes.addFlashAttribute("alertMessage", messageSource.getMessage("bookmark.delete.complete", null, locale));
+			redirectAttributes.addFlashAttribute(Defines.ALERT_MESSAGE, messageSource.getMessage("bookmark.delete.complete", null, locale));
 		}else{
-			redirectAttributes.addFlashAttribute("alertMessage", messageSource.getMessage("bookmark.delete.error", null, locale));
+			redirectAttributes.addFlashAttribute(Defines.ALERT_MESSAGE, messageSource.getMessage("bookmark.delete.error", null, locale));
 		}
 		
 		return "redirect:/admin/bookmark/myList";
