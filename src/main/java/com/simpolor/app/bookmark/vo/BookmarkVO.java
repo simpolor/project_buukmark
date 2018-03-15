@@ -17,7 +17,9 @@ public class BookmarkVO {
 	private String mod_date;				// 수정일
 	private String del_yn;					// 삭제유무
 	
-	private int my_seq;						// 나의 북마크 번호		
+	private int my_seq;						// 나의 북마크 번호
+	private int report_seq;					// 북마크 신고 번호
+	private String report_content;			// 북마크 신고 내용
 	
 	private String search_type;				
 	private String search_condition;		// 검색조건
@@ -168,4 +170,17 @@ public class BookmarkVO {
 	public void setLimit(int limit) {
 		this.limit = limit;
 	}
+	public int getReport_seq() {
+		return report_seq;
+	}
+	public void setReport_seq(int report_seq) {
+		this.report_seq = report_seq;
+	}
+	public String getReport_content() {
+		return report_content;
+	}
+	public void setReport_content(String report_content) {
+		this.report_content = report_content;
+	}
+	
 }

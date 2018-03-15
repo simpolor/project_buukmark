@@ -51,6 +51,13 @@ public class MemberService{
 		return result;
 	}
 	
+	public int updateMemberWithdraw(MemberVO memberVO){
+		int result = 0;
+		result = memberMapper.updateMemberWithdraw(memberVO);
+		
+		return result;
+	}
+	
 	public int selectMemberConfirm(MemberVO memberVO) {
 		int result = 0;
 		result = memberMapper.selectMemberConfirm(memberVO);

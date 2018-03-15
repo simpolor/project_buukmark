@@ -66,7 +66,8 @@ public class WithdrawController {
 		// 비밀번호 암호화
 		memberVO.setMember_pw(encryptUtil.getEncMD5(memberVO.getMember_pw()));
 		
-		int result = memberService.deleteMember(memberVO);
+		//int result = memberService.deleteMember(memberVO);
+		int result = memberService.updateMemberWithdraw(memberVO);
 		if(result > 0){
 			memberVO.setMember_id(member_id);
 			memberVO.setMember_name(member_name);

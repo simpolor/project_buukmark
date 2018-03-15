@@ -56,7 +56,7 @@
 							<form:password path="member_pw_org" placeholder="현재 비밀번호" />
 						</div>
 						<div class="member-field-input">
-							<form:password path="member_pw" placeholder="변경할 비밀번호" />
+							<form:password path="member_pw" placeholder="변경할 비밀번호 ( 6~20 영문/숫자/특수문자[ 0~9 ] )" />
 						</div>
 						<div class="member-field-input">
 							<form:password path="member_pw2" placeholder="변경할 비밀번호 확인" />

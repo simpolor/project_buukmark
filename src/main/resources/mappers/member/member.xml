@@ -42,6 +42,14 @@
 		   AND member_pw = #{member_pw}
     </delete>
     
+    <update id="updateMemberWithdraw" parameterType="memberVO">
+		UPDATE member
+		   SET del_yn = 'Y'
+		       , mod_date = now()
+		 WHERE member_id = #{member_id}
+		   AND member_pw = #{member_pw} 
+    </update>
+    
     <select id="selectMemberConfirm" parameterType="memberVO" resultType="int">
 		SELECT COUNT(*)
 		  FROM member

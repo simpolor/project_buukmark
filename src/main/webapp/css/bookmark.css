@@ -174,6 +174,73 @@
 }
 /*---- .bookmark-search end ----*/
 
+/*---- .bookmark-report start ----*/
+.bookmark-report {
+	width: 100%;
+	min-width: 1000px;
+	height: 150px;
+	border-bottom: 1px solid #DCDCDC;
+}
+.bookmark-report fieldset {
+	width: 900px;
+	border: 0;
+	margin: 0 auto;
+}
+.bookmark-report legend {
+	display: none;
+}
+.bookmark-report p {
+	padding-top: 10px;
+}
+.bookmark-report-type {
+	width: 100px;
+	height: 40px;
+	margin-right: 2px;
+	padding: 5px;
+	border: 1px solid #DCDCDC;
+	-webkit-box-sizing: border-box; /* Safari/Chrome, other WebKit */
+    -moz-box-sizing: border-box;    /* Firefox, other Gecko */
+    box-sizing: border-box;         /* Opera/IE 8+ */
+}
+.bookmark-report-category {
+	width: 167px;
+	height: 38px;
+	margin-right: 2px;
+	padding: 5px;
+	border: 1px solid #DCDCDC;
+	-webkit-box-sizing: border-box; /* Safari/Chrome, other WebKit */
+    -moz-box-sizing: border-box;    /* Firefox, other Gecko */
+    box-sizing: border-box;         /* Opera/IE 8+ */
+}
+.bookmark-report-description {
+	width: 500px;
+	height: 38px;
+	margin-right: 2px;
+	padding: 5px;
+	border: 1px solid #DCDCDC;
+	-webkit-box-sizing: border-box; /* Safari/Chrome, other WebKit */
+    -moz-box-sizing: border-box;    /* Firefox, other Gecko */
+    box-sizing: border-box;         /* Opera/IE 8+ */
+}
+.bookmark-report-url {
+	width: 780px;
+	height: 38px;
+	margin-right: 2px;
+	padding: 5px;
+	border: 1px solid #DCDCDC;
+	-webkit-box-sizing: border-box; /* Safari/Chrome, other WebKit */
+    -moz-box-sizing: border-box;    /* Firefox, other Gecko */
+    box-sizing: border-box;         /* Opera/IE 8+ */
+}
+.bookmark-report-btn {
+	width: 90px;
+	height: 40px;
+	margin-right: 2px;
+	border: 1px solid #DCDCDC;
+	background: #CACACA;
+}
+/*---- .bookmark-search end ----*/
+
 
 /*---- .bookmark-list start ----*/
 .bookmark-list {

@@ -46,6 +46,10 @@ public class MemberMapper {
 		return sqlSession.delete("deleteMember", memberVO);
 	}
 	
+	public int updateMemberWithdraw(MemberVO memberVO){
+		return sqlSession.update("updateMemberWithdraw", memberVO);
+	}
+	
 	public int selectMemberConfirm(MemberVO memberVO){
 		return sqlSession.selectOne("selectMemberConfirm", memberVO);
 	}

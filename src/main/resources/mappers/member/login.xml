@@ -7,6 +7,7 @@
 		  FROM member
 		 WHERE member_id = #{member_id}
 		   AND member_pw = #{member_pw} 
+		   AND del_yn = 'N'
     </select>
     
     
@@ -15,6 +16,7 @@
 		  FROM member
 		 WHERE member_id = #{member_id}
 		    AND member_pw = #{member_pw}
-		    AND level >= 90  
+		    AND level >= 90
+		    AND del_yn = 'N'  
     </select>
 </mapper>

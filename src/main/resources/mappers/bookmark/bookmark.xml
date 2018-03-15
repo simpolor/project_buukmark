@@ -36,6 +36,27 @@
 	     LIMIT #{limit} OFFSET #{offset} 
     </select>
     
+    <select id="selectBookmark" parameterType="bookmarkVO" resultType="bookmarkVO">
+		SELECT A.bookmark_seq
+		       , A.bookmark_type
+		       , A.bookmark_category
+		       , A.bookmark_description
+		       , A.bookmark_url
+		       , A.reg_id
+		       , A.reg_name
+		       , A.reg_nickname
+		       , DATE(A.reg_date) reg_date
+		       , A.mod_id
+		       , A.mod_name
+		       , A.mod_nickname
+		       , DATE(A.mod_date) mod_date
+		       , A.del_yn
+		  	   , B.my_seq
+		  FROM bookmark A LEFT OUTER JOIN bookmark_my B ON A.bookmark_seq = B.bookmark_seq AND B.reg_id = #{reg_id} AND B.del_yn = 'N'
+		 WHERE A.del_yn = 'N'
+		   AND A.bookmark_seq = #{bookmark_seq}
+	</select>
+    
 	<insert id="insertBookmark" parameterType="bookmarkVO"  useGeneratedKeys="true" keyProperty="bookmark_seq">
 		INSERT INTO bookmark( bookmark_type, bookmark_category, bookmark_description, bookmark_url, reg_id, reg_name, reg_nickname, reg_date )
 			 VALUES ( 

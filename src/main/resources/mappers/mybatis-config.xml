@@ -16,6 +16,7 @@
     <mappers>
      	<mapper resource="mappers/bookmark/bookmark.xml"/>
      	<mapper resource="mappers/bookmark/bookmarkMy.xml"/>
+     	<mapper resource="mappers/bookmark/bookmarkReport.xml"/>
      	
      	<mapper resource="mappers/board/board.xml"/>
      	<mapper resource="mappers/board/boardReply.xml"/>

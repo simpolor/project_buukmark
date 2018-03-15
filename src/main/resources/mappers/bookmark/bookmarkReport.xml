@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.simpolor.app.bookmark.mapper.bookmarkReportMapper">
+
+  <select id="selectBookmarkReportTotalCount" parameterType="bookmarkVO" resultType="int">
+		SELECT COUNT(*)
+		  FROM bookmark_report
+		 WHERE A.del_yn = 'N'
+		 <if test="search_condition != null">
+      	   AND ${search_condition} LIKE CONCAT('%', #{search_word},'%')
+    	 </if>
+	</select>
+	
+	<select id="selectBookmarkReportList" parameterType="bookmarkVO" resultType="bookmarkVO">
+		SELECT report_seq
+			   , bookmark_seq
+		       , report_content
+		       , report_yn
+		       , reg_id
+		       , reg_name
+		       , reg_nickname
+		       , DATE(reg_date) reg_date
+		       , mod_id
+		       , mod_name
+		       , mod_nickname
+		       , DATE(mod_date) mod_date
+		       , del_yn
+		  FROM bookmark_report
+		 WHERE A.del_yn = 'N'
+		 <if test="search_condition != null">
+      	   AND ${search_condition} LIKE CONCAT('%', #{search_word},'%')
+    	 	</if>
+	  ORDER BY A.report_seq DESC
+	     LIMIT #{limit} OFFSET #{offset}
+	</select>
+	
+	<select id="selectBookmarkReport" parameterType="bookmarkVO" resultType="bookmarkVO">
+		SELECT report_seq
+			   , bookmark_seq
+		       , report_content
+		       , report_yn
+		       , reg_id
+		       , reg_name
+		       , reg_nickname
+		       , DATE(reg_date) reg_date
+		       , mod_id
+		       , mod_name
+		       , mod_nickname
+		       , DATE(mod_date) mod_date
+		       , del_yn
+		  FROM bookmark_report
+		 WHERE A.del_yn = 'N'
+		   AND A.report_seq = #{report_seq}
+	</select>
+	
+	<insert id="insertBookmarkReport" parameterType="bookmarkVO">
+		INSERT INTO bookmark_report( bookmark_seq, report_yn, reg_id, reg_name, reg_nickname, reg_date )
+			 VALUES ( 
+			 			#{bookmark_seq}
+			 			, #{report_content}
+			 			, #{reg_id}
+			 			, #{reg_name}
+			 			, #{reg_nickname}
+			 			, now()
+			 	    )
+    </insert>
+	
+</mapper>
