@@ -46,35 +46,34 @@ public class BookmarkReportController {
 	
 	Locale locale;
 	
-	@RequestMapping(value = "/bookmark/reportList", method = RequestMethod.GET)
-	public String bookmarkReportList(HttpServletRequest request, HttpSession session, Model model, BookmarkVO bookmarkVO){
+	@ResponseBody
+	@RequestMapping(value = "/bookmark/report", method = RequestMethod.GET)
+	public Map<String, Object> bookmarkReport(HttpServletRequest request, HttpSession session, Model model, BookmarkVO bookmarkVO){
 		
-		// 나의 북마크를 위한 설정
+		Map<String, Object> resultMap = new HashMap<String, Object>();
+		
 		String member_id = StringUtil.getString(session.getAttribute("SESSION_MEMBER_ID"));
+		String member_name = StringUtil.getString(session.getAttribute("SESSION_MEMBER_NAME"));
+		String member_nickname = StringUtil.getString(session.getAttribute("SESSION_MEMBER_NICKNAME"));
+		if(StringUtil.isEmpty(member_id)){
+			resultMap.put(Defines.ASYNC_RESULT, "fail");
+			resultMap.put(Defines.ASYNC_REASON, messageSource.getMessage("access.wrong", null, locale));
+			return resultMap;
+		}
+		
 		bookmarkVO.setReg_id(member_id);
-				
-		// 전체 갯수 가져오기 
-		int totalCount = bookmarkReportService.selectBookmarkReportTotalCount(bookmarkVO);
+		bookmarkVO.setReg_name(member_name);
+		bookmarkVO.setReg_nickname(member_nickname);
 		
-		// page 파라미터 값 가져오기
-		int page = bookmarkVO.getPage();
+		int result = bookmarkReportService.insertBookmarkReport(bookmarkVO);
+		if(result > 0){
+			resultMap.put(Defines.ASYNC_RESULT, "success");
+		}else{
+			resultMap.put(Defines.ASYNC_RESULT, "fail");
+			resultMap.put(Defines.ASYNC_REASON, messageSource.getMessage("result.notfound", null, locale));
+		}
 		
-		PageInfinity paging = new PageInfinity();
-		paging.setTotalCount(totalCount);
-		paging.setPageNo(page);
-		paging.setPageViewCount(10);
-		paging.makePageInfinity();
-	
-		// bookmarkVO에 offset, limit 세팅
-		bookmarkVO.setOffset(paging.getOffset());
-		bookmarkVO.setLimit(paging.getLimit());
-		
-		List<BookmarkVO> list = bookmarkReportService.selectBookmarkReportList(bookmarkVO);
-
-		model.addAttribute("bookmarkReportList", list);
-		model.addAttribute("paging", paging);
-		
-		return "app/bookmark/list";
+		return resultMap;
 	}
 	
 	
