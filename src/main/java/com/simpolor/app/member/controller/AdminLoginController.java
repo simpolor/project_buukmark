@@ -10,6 +10,7 @@ import javax.servlet.http.HttpSession;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.MessageSource;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -21,6 +22,7 @@ import com.simpolor.app.Defines;
 import com.simpolor.app.common.util.EncryptUtil;
 import com.simpolor.app.common.util.RSA;
 import com.simpolor.app.common.util.RSAUtil;
+import com.simpolor.app.common.util.StringUtil;
 import com.simpolor.app.member.service.LoginService;
 import com.simpolor.app.member.vo.MemberVO;
 
@@ -31,6 +33,21 @@ import com.simpolor.app.member.vo.MemberVO;
 public class AdminLoginController {
 	
 	private static final Logger logger = LoggerFactory.getLogger(AdminLoginController.class);
+	
+	@Value("${administrator.identify}")
+	private String admin_id;
+	
+	@Value("${administrator.password}")
+	private String admin_pw;
+	
+	@Value("${administrator.name}")
+	private String admin_name;
+	
+	@Value("${administrator.nickname}")
+	private String admin_nickname;
+	
+	@Value("${administrator.level}")
+	private String admin_level;
 	
 	@Autowired
 	private LoginService loginService;
@@ -87,17 +104,23 @@ public class AdminLoginController {
 	        String member_id = rsaUtil.getDecryptText(key, memberVO.getMember_id());
 	        String member_pw = rsaUtil.getDecryptText(key, memberVO.getMember_pw());
 	 
-	        //System.out.println(member_pw);
-	        //System.out.println(encryptUtil.getEncMD5(member_pw));
-	        
 	        // 복호화된 평문을 재설정
 	        memberVO.setMember_id(member_id);
-	        //memberVO.setMember_pw(member_pw);
 	        memberVO.setMember_pw(encryptUtil.getEncMD5(member_pw));
+	        //memberVO.setMember_pw(member_pw);
+	        
+	        // 관리자 처리
+	        if(StringUtil.isEquals(admin_id, member_id) && StringUtil.isEquals(admin_pw, encryptUtil.getEncMD5(member_pw))) {
+	        	session.setAttribute("SESSION_MEMBER_ID", admin_id);
+				session.setAttribute("SESSION_MEMBER_NAME", admin_name);
+				session.setAttribute("SESSION_MEMBER_NICKNAME", admin_nickname);
+				session.setAttribute("SESSION_MEMBER_LEVEL", admin_level);
+
+				return "redirect:/admin/bookmark/list";
+	        }
 	        
 	        // 로그인 처리
 	        memberVO = loginService.selectMemberAdminLogin(memberVO);
-	        
 	        if(memberVO != null){
 	        	session.setAttribute("SESSION_MEMBER_ID", memberVO.getMember_id());
 				session.setAttribute("SESSION_MEMBER_NAME", memberVO.getMember_name());
