@@ -110,8 +110,8 @@
 						<p>
 							<form:select path="bookmark_type" class="bookmark-add-type">
 								<form:option value="">유형 선택</form:option>
-								<form:option value="website">웹사이트</form:option>
-								<form:option value="blog">블로그</form:option>
+								<form:option value="웹사이트">웹사이트</form:option>
+								<form:option value="블로그">블로그</form:option>
 							</form:select>
 							<form:input path="bookmark_category" placeholder="카테고리" class="bookmark-add-category" />
 							<form:input path="bookmark_description" placeholder="설명" class="bookmark-add-description" />
