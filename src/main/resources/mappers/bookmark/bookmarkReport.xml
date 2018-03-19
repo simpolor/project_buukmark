@@ -54,7 +54,7 @@
 	</select>
 	
 	<insert id="insertBookmarkReport" parameterType="bookmarkVO">
-		INSERT INTO bookmark_report( bookmark_seq, report_yn, reg_id, reg_name, reg_nickname, reg_date )
+		INSERT INTO bookmark_report( bookmark_seq, report_content, reg_id, reg_name, reg_nickname, reg_date )
 			 VALUES ( 
 			 			#{bookmark_seq}
 			 			, #{report_content}

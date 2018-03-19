@@ -47,7 +47,7 @@ public class BookmarkReportController {
 	Locale locale;
 	
 	@ResponseBody
-	@RequestMapping(value = "/bookmark/report", method = RequestMethod.GET)
+	@RequestMapping(value = "/bookmark/report", method = RequestMethod.POST)
 	public Map<String, Object> bookmarkReport(HttpServletRequest request, HttpSession session, Model model, BookmarkVO bookmarkVO){
 		
 		Map<String, Object> resultMap = new HashMap<String, Object>();
@@ -60,6 +60,9 @@ public class BookmarkReportController {
 			resultMap.put(Defines.ASYNC_REASON, messageSource.getMessage("access.wrong", null, locale));
 			return resultMap;
 		}
+		
+		System.out.println("getBookmark_seq : "+bookmarkVO.getBookmark_seq());
+		System.out.println("getReport_content : "+bookmarkVO.getReport_content());
 		
 		bookmarkVO.setReg_id(member_id);
 		bookmarkVO.setReg_name(member_name);

@@ -177,20 +177,16 @@
 		<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jquery-modal/0.9.1/jquery.modal.min.css" />
 		<script type="text/javascript">
 			function f_reportForm( bookmark_seq, bookmark_description, bookmark_url ){
-				$('.bookmark-seq').val(bookmark_seq);
-				$('.bookmark-report-description').val(bookmark_description);
-				$('.bookmark-report-url').val(bookmark_url);
+				$('#bookmark_report_seq').val(bookmark_seq);
+				$('#bookmark_report_description').val(bookmark_description);
+				$('#bookmark_report_url').val(bookmark_url);
 			}
 			
 			function f_report(){
-				if(!confirm("정말로 신고하시겠습니가?")){
-					return false;
-				}
-				
 				var ajaxUrl = '${pageContext.request.contextPath}/bookmark/report';
 				var ajaxData = {
-					"bookmark_seq": $(boardSeqId).val(),
-					"report_content": $(boardSeqId).val(), 
+					"bookmark_seq": $('#bookmark_report_seq').val(),
+					"report_content": $('#bookmark_report_content').val() 
 				};
 				
 				$.ajax({
@@ -201,7 +197,11 @@
 					success : function(data){
 						var result = data.result;
 						if(result == 'success'){
-							
+							alert('접수가 완료되었습니다.');
+							$.modal.close();
+						}else{
+							alert('접수가 완료되었습니다.');
+							$.modal.close();
 						}
 					}
 				});
@@ -227,23 +227,6 @@
 						</p>
 					</fieldset>
 				</form:form>
-			</div>
-			
-			<div id="bookmark-report" class="bookmark-report" style="display: none;">
-				<fieldset>
-					<legend>북마크 신고</legend>
-					<p>
-						<input type="text" class="bookmark-report-description" readonly="readonly" />
-						<input type="text" class="bookmark-report-url color-royal-blue" readonly="readonly" />
-					</p>
-					<p>
-						<input type="hidden" id="bookmark_seq" name="bookmark_seq" class="bookmark-seq" />
-						<textarea id="report_content" name="report_content" class="bookmark-report-content" placeholder="신고 내용"></textarea>
-					</p>
-					<p style="text-align: right;">
-						<a href="#" class="pure-button bookmark-report-btn" onclick="f_report(); return false;">신고</a>
-					</p>
-				</fieldset>
 			</div>
 			
 			<div class="bookmark-list">
@@ -275,7 +258,7 @@
 							 					${bookmarkList.bookmark_url}
 							 				</a>
 							 				<!-- <a href="#" class="font-8 color-red" onclick="f_ban('${bookmarkList.bookmark_seq}'); return false;">신고</a> -->
-							 				<a href="#bookmark-report" rel="modal:open" class="font-8 color-red" onclick="f_reportForm( '${bookmarkList.bookmark_seq}', '${bookmarkList.bookmark_description}', '${bookmarkList.bookmark_url}'); return false;">신고</a>
+							 				<a href="#bookmark_report" rel="modal:open" class="font-8 color-red" onclick="f_reportForm( '${bookmarkList.bookmark_seq}', '${bookmarkList.bookmark_description}', '${bookmarkList.bookmark_url}'); return false;">신고</a>
 							 			</td>
 							 			<td align="center">
 											<c:if test="${! empty sessionScope.SESSION_MEMBER_ID}">
@@ -310,6 +293,24 @@
 					<i class="fa fa-caret-down fa-2x color-black corsor" aria-hidden="true" onclick="f_more(); return false;"></i>
 				</div>
 			</c:if>
+			
+			<div id="bookmark_report" class="bookmark-report" style="display: none;">
+				<fieldset>
+					<legend>북마크 신고</legend>
+					<p>
+						<input type="text" id="bookmark_report_description" class="bookmark-report-description" readonly="readonly" />
+						<input type="text" id="bookmark_report_url" class="bookmark-report-url color-royal-blue" readonly="readonly" />
+					</p>
+					<p>
+						<input type="hidden" id="bookmark_report_seq" class="bookmark-report-seq" />
+						<textarea id="bookmark_report_content" class="bookmark-report-content" placeholder="신고 내용"></textarea>
+					</p>
+					<p style="text-align: right;">
+						<a href="#" class="pure-button bookmark-report-btn" onclick="f_report(); return false;">신고</a>
+					</p>
+				</fieldset>
+			</div>
+			
 		</div><!-- #section -->
 		
 	</tiles:putAttribute>
