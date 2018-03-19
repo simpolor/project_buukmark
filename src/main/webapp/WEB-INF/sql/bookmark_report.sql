@@ -2,7 +2,7 @@ CREATE TABLE `bookmark_report` (
 	`report_seq` INT(11) NOT NULL AUTO_INCREMENT COMMENT '신고 번호',
 	`bookmark_seq` INT(11) NOT NULL COMMENT '즐겨찾기 번호',
 	`report_content` VARCHAR(500) NOT NULL COMMENT '신고 내용',
-	`report_yn` CHAR(1) NOT NULL COMMENT '신고 처리유무',
+	`report_yn` CHAR(1) NULL DEFAULT 'N' COMMENT '신고 처리유무',
 	`reg_id` VARCHAR(20) NOT NULL COMMENT '등록자 아이디',
 	`reg_name` VARCHAR(50) NOT NULL COMMENT '등록자 이름',
 	`reg_nickname` VARCHAR(50) NOT NULL COMMENT '등록자 닉네임',

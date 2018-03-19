@@ -61,8 +61,8 @@ public class BookmarkReportController {
 			return resultMap;
 		}
 		
-		System.out.println("getBookmark_seq : "+bookmarkVO.getBookmark_seq());
-		System.out.println("getReport_content : "+bookmarkVO.getReport_content());
+		//System.out.println("getBookmark_seq : "+bookmarkVO.getBookmark_seq());
+		//System.out.println("getReport_content : "+bookmarkVO.getReport_content());
 		
 		bookmarkVO.setReg_id(member_id);
 		bookmarkVO.setReg_name(member_name);

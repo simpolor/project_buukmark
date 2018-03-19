@@ -76,9 +76,8 @@
 		<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-modal/0.9.1/jquery.modal.min.js"></script>
 		<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jquery-modal/0.9.1/jquery.modal.min.css" />
 		<script type="text/javascript">
-			/*function ex1(){ // 수정시 사용
-				$('.bookmark-add-category').val('test');
-			}*/
+			
+		
 		</script>
 		
 		<div id="section">
@@ -96,7 +95,7 @@
 							</form:select>
 							<form:input path="search_word" class="bookmark-mySearch-word" placeholder="검색내용" />
 							<button class="pure-button bookmark-mySearch-btn" onclick="f_search(); return false;">검색</button>
-							<a href="#bookmark-add" rel="modal:open" class="pure-button bookmark-myAdd-btn" onclick="ex1();">
+							<a href="#bookmark-add" rel="modal:open" class="pure-button bookmark-myAdd-btn">
 								<i class="fa fa-plus" aria-hidden="true" style="vertical-align: middle;"></i>
 							</a>
 						</p>
@@ -107,7 +106,7 @@
 			<div id="bookmark-add" class="bookmark-add" style="display: none;">
 				<form:form id="bookmarkAddForm" action="${pageContext.request.contextPath}/bookmark/add" method="post" commandName="bookmarkVO" style="margin: 0;" >
 					<fieldset>
-						<legend>북마크 검색</legend>
+						<legend>북마크 추가</legend>
 						<p>
 							<form:select path="bookmark_type" class="bookmark-add-type">
 								<form:option value="">유형 선택</form:option>

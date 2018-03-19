@@ -168,6 +168,7 @@
 .bookmark-add-btn {
 	width: 90px;
 	height: 40px;
+	margin-top: -4px;
 	margin-right: 2px;
 	border: 1px solid #DCDCDC;
 	background: #CACACA;

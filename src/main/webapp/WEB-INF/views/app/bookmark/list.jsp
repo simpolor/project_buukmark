@@ -172,10 +172,11 @@
 			}
 		</script>
 		
+		<%--
 		<!-- jQuery Modal -->
 		<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-modal/0.9.1/jquery.modal.min.js"></script>
 		<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jquery-modal/0.9.1/jquery.modal.min.css" />
-		<script type="text/javascript">
+		 <script type="text/javascript">
 			function f_reportForm( bookmark_seq, bookmark_description, bookmark_url ){
 				$('#bookmark_report_seq').val(bookmark_seq);
 				$('#bookmark_report_description').val(bookmark_description);
@@ -183,6 +184,11 @@
 			}
 			
 			function f_report(){
+				if(isNull($("#bookmark_report_content").val())){
+					alert('신고내용을 입력해주세요.');	
+					return false;
+				}
+				
 				var ajaxUrl = '${pageContext.request.contextPath}/bookmark/report';
 				var ajaxData = {
 					"bookmark_seq": $('#bookmark_report_seq').val(),
@@ -198,15 +204,14 @@
 						var result = data.result;
 						if(result == 'success'){
 							alert('접수가 완료되었습니다.');
-							$.modal.close();
-						}else{
-							alert('접수가 완료되었습니다.');
-							$.modal.close();
 						}
+						$('#bookmark_report_content').val('');
+						$.modal.close();
 					}
 				});
 			}
 		</script>
+		--%>
 		
 		<div id="section">
 			<div class="bookmark-search">
@@ -257,8 +262,11 @@
 							 				<a class="font-12 color-royal-blue" href="${bookmarkList.bookmark_url}" target="_blink">
 							 					${bookmarkList.bookmark_url}
 							 				</a>
-							 				<!-- <a href="#" class="font-8 color-red" onclick="f_ban('${bookmarkList.bookmark_seq}'); return false;">신고</a> -->
-							 				<a href="#bookmark_report" rel="modal:open" class="font-8 color-red" onclick="f_reportForm( '${bookmarkList.bookmark_seq}', '${bookmarkList.bookmark_description}', '${bookmarkList.bookmark_url}'); return false;">신고</a>
+							 				<%-- 
+							 				<c:if test="${! empty sessionScope.SESSION_MEMBER_ID}">
+							 					<a href="#bookmark_report" rel="modal:open" class="font-8 color-red" onclick="f_reportForm( '${bookmarkList.bookmark_seq}', '${bookmarkList.bookmark_description}', '${bookmarkList.bookmark_url}'); return false;">신고</a>
+							 				</c:if>
+							 				--%>
 							 			</td>
 							 			<td align="center">
 											<c:if test="${! empty sessionScope.SESSION_MEMBER_ID}">
@@ -294,6 +302,7 @@
 				</div>
 			</c:if>
 			
+			<%-- 
 			<div id="bookmark_report" class="bookmark-report" style="display: none;">
 				<fieldset>
 					<legend>북마크 신고</legend>
@@ -310,6 +319,7 @@
 					</p>
 				</fieldset>
 			</div>
+			--%>
 			
 		</div><!-- #section -->
 		
